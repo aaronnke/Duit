@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :bank_accounts
-
-  # get "bankaccounts/id" => "bankaccounts/show", as: "bank_accounts_path"
+  devise_for :users
+  root 'pages#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
