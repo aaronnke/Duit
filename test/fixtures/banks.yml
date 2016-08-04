@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  content_service_id: 1
+  content_service_display_name: MyString
+  site_id: 1
+  site_display_name: MyString
+  mfa: MyString
+  home_url: MyString
+  container: MyString
+
+two:
+  content_service_id: 1
+  content_service_display_name: MyString
+  site_id: 1
+  site_display_name: MyString
+  mfa: MyString
+  home_url: MyString
+  container: MyString
