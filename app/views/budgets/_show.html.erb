@@ -1,0 +1,31 @@
+<% unless current_user.bank_accounts.empty? %>
+
+  <% if current_user.bank_accounts.first.budgets.empty? %>
+
+    <%= form_for @budget, controller: "budgets#create", :html => {:method => :post} do |f| %>
+      <%= f.date_field :start_date %>
+      <%= f.date_field :end_date %>
+      <%= f.submit "Create Budget" %>
+    <% end %>
+
+  <% else %>
+
+    <h1> Incomes </h1>
+    <%= render "budget_types/new_income" %>
+    <%= render @incomes %>
+
+    <h1> Expenses </h1>
+    <%= render "budget_types/new_expense" %>
+    <%= render @expenses %>
+
+    <h1> Balance </h1>
+    <%= render "budget_types/new_balance" %>
+    <%= render @balances %>
+
+  <% end %>
+
+<% else %>
+
+  <h1> Please create a bank account above! </h1>
+
+<% end %>
