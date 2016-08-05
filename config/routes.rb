@@ -1,7 +1,19 @@
 Rails.application.routes.draw do
-  resources :bank_accounts
-  devise_for :users
+
   root 'pages#index'
+
+  get "users/:id/profile" => "pages#profile", as: :user_profile
+
+  devise_for :users
+
+  resources :bank_accounts
+
+  resources :budgets do
+    post "/create_new_income" => "budget_types#create_new_income", as: :create_new_income
+    post "/create_new_expense" => "budget_types#create_new_expense", as: :create_new_expense
+    post "/create_new_balance" => "budget_types#create_new_balance", as: :create_new_balance
+  end
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
