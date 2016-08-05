@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160805064911) do
+ActiveRecord::Schema.define(version: 20160805072253) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,11 +33,30 @@ ActiveRecord::Schema.define(version: 20160805064911) do
     t.float    "balance"
   end
 
+  create_table "budget_types", force: :cascade do |t|
+    t.integer  "budget_id"
+    t.integer  "tag_id"
+    t.integer  "amount"
+    t.string   "category"
+    t.string   "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "budgets", force: :cascade do |t|
+    t.integer  "bank_account_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "groups", force: :cascade do |t|
     t.string   "group_name"
     t.integer  "master_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "group_token"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -78,6 +97,7 @@ ActiveRecord::Schema.define(version: 20160805064911) do
     t.datetime "locked_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "avatar"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable
 
+  mount_uploader :avatar, AvatarUploader
+  
   has_many :allocations
   has_many :groups, :through => :allocations
   has_many :bank_accounts
