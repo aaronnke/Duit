@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
 
-  root 'pages#index'
+  resources :bank_accounts
+
+  resources :groups
+  post "groups/join" => "groups#join", as: "join_group"
+
+  devise_for :users, :controllers => { registrations: 'registrations'}
+
+   root 'pages#index'
 
   get "users/:id/profile" => "pages#profile", as: :user_profile
 
