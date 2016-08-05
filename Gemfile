@@ -37,7 +37,8 @@ gem 'figaro'
 
 # Use devise for user management
 gem 'devise', '3.4.1'
-
+gem 'carrierwave'
+gem 'mini_magick'
 
 # ====================== WHAT IS THIS GEM FOR? =========================
 gem 'bootstrap-sass'
