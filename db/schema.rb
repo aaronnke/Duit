@@ -11,19 +11,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160804094742) do
+ActiveRecord::Schema.define(version: 20160804164200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "allocations", force: :cascade do |t|
+    t.integer "group_id"
+    t.integer "user_id"
+  end
+
+  add_index "allocations", ["group_id"], name: "index_allocations_on_group_id", using: :btree
+  add_index "allocations", ["user_id"], name: "index_allocations_on_user_id", using: :btree
+
   create_table "bank_accounts", force: :cascade do |t|
-    t.string   "user_id"
+    t.integer  "user_id"
     t.float    "balance"
     t.integer  "bank_account_number"
     t.integer  "pin"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
   end
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "group_name"
+    t.integer  "master_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string   "category"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "bank_account_id"
+    t.integer  "tag_id"
+    t.integer  "amount"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "transactions", ["bank_account_id"], name: "index_transactions_on_bank_account_id", using: :btree
+  add_index "transactions", ["tag_id"], name: "index_transactions_on_tag_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
