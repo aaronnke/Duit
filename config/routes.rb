@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   resources :bank_accounts
-  devise_for :users
-  root 'pages#index'
+
+  resources :groups 
+  post "groups/join" => "groups#join", as: "join_group"
+
+  devise_for :users, :controllers => { registrations: 'registrations'}
+
+   root 'pages#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
