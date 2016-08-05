@@ -1,5 +1,6 @@
 class BankAccountsController < ApplicationController
 	def new
+
 		@bank_account = BankAccount.new
 	end
 

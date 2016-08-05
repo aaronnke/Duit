@@ -1,0 +1,16 @@
+<% if current_user.bank_accounts.exists? %>
+	Name:
+	<%= current_user.name %>
+	</br>
+	Bank Account Number:
+	<%= current_user.bank_accounts[0].bank_account_number %>
+	</br>
+	Card Number:
+	<%= current_user.bank_accounts[0].bank_account_number.gsub(/(\d{6})/, '************')%>
+	</br>
+	Balance:
+	<%= number_to_currency(current_user.bank_accounts[0].balance, precision: 2)%>
+<%else%>
+	<%=render 'form'%>
+
+<%end%>

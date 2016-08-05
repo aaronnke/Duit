@@ -26,11 +26,11 @@ ActiveRecord::Schema.define(version: 20160805072253) do
 
   create_table "bank_accounts", force: :cascade do |t|
     t.integer  "user_id"
-    t.float    "balance"
-    t.integer  "bank_account_number"
     t.integer  "pin"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.string   "bank_account_number"
+    t.float    "balance"
   end
 
   create_table "budget_types", force: :cascade do |t|

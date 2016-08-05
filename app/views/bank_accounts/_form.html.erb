@@ -1,11 +1,13 @@
-<%= form_for @bankaccounts do |f| %>
+<%= form_for @bank_account do |f| %>
 	<%= f.label :"Bank Account Number:"%>
 	<%= f.text_field :bank_account_number %>
 </br>
 	<%= f.label :"Pin:"%>
 	<%= f.password_field :pin %>
-	<%= f.hidden_field :user_id, :value => 1  %>
-	<%= f.hidden_field :balance, :value => 0  %>
+	<%= f.hidden_field :user_id, :value => current_user.id  %>
+</br>
+	<%= f.label :"Balance:"%>
+	<%= f.number_field :balance %>
 
 </br>
    <%= f.submit %>     
