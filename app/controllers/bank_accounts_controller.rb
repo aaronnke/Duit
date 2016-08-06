@@ -1,21 +1,24 @@
 class BankAccountsController < ApplicationController
-	def new
 
+	def new
 		@bank_account = BankAccount.new
 	end
 
 	def create
-
 		@bank_account = BankAccount.new(bank_account_params)
-		@bank_account.save
-
+		 if @bank_account.save
+			 redirect_to user_profile_path(current_user)
+		 else
+			 flash[:notice] = "Bank account already exists."
+			 redirect_to user_profile_path(current_user)
+		 end
 	end
 
-  	def edit
-  	end
+  def edit
+  end
 
-  	def show
-  	end
+  def show
+  end
 
 
 private
