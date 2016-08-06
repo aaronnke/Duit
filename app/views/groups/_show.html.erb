@@ -1,15 +1,7 @@
 <h1>Group: <%= @group.group_name %></h1> 
-<b> Members </b>
-<% @group.users.each do |user| %>
-	<div>
-	<li><%= user.name %></li>
-	<% if user.id == @group.master_id %>
-		<p>Role: MASTER </p>
-	<%end%>
-	</div>
-<%end%>
 
 <% if @group.master_id == current_user.id %>
 	<p> Group Pass: <%= @group.group_token %> </p>
 	<%= link_to "Delete Group", group_path(@group), method: :delete, :data => {:confirm => "Are you sure?"} %>
+	<%= link_to "Edit Group", edit_group_path(@group) %>
 <% end %>

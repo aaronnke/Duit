@@ -16,6 +16,15 @@ class PagesController < ApplicationController
     else
       @bank_account = BankAccount.new
     end
+
+     
+    #groups 
+    if current_user.groups.empty? 
+      @group = Group.new 
+    else 
+      @group = current_user.groups.first 
+    end 
+
   end
 
 end

@@ -1,0 +1,7 @@
+<% if current_user.groups.empty? %>
+<p> You don't have a group yet. Create/join one! </p>
+<%= render "groups/new" %>
+
+<% else %>
+<%= render "groups/show" %>
+<% end %>

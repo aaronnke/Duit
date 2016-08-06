@@ -1,0 +1,11 @@
+<%= form_for @group do |form| %>
+<%= render partial: 'groups/form', object: form %>
+
+<%= form.submit "Create" %>
+<% end %>
+
+<%= form_for @group, url: join_group_path do |form| %>
+<%= render partial: 'groups/join', object: form %>
+
+<%= form.submit "Join" %>
+<% end %>

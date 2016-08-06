@@ -11,7 +11,7 @@ class GroupsController < ApplicationController
 		@group.save  
 		@user.groups << @group 
 
-		redirect_to group_path(@group)
+		redirect_to user_profile_path(current_user)
 	end 
 
 	def show 
@@ -29,13 +29,13 @@ class GroupsController < ApplicationController
 	def destroy 
 		@group = Group.find(params[:id])
 		@group.destroy 
-		redirect_to root_path 
+		redirect_to user_profile_path(current_user) 
 	end 
 
 	def update
 		@group = Group.find(params[:id])
 		if @group.update(group_params)
-			redirect_to group_path(@group)
+			redirect_to user_profile_path(current_user)
 		end  
 	end 
 
@@ -44,12 +44,12 @@ class GroupsController < ApplicationController
 		@group = Group.find_by(group_token:params[:group][:group_token]) 
 		if @group.nil?
 			flash[:notice] = "No such group. Make sure group token is correct!"
-			redirect_to root_path 
+			redirect_to user_profile_path(current_user)
 		
 		else 
 			@user.groups << @group 
 			flash[:notice] = "Group found. Welcome to the tribe (:"
-			redirect_to group_path(@group)
+			redirect_to user_profile_path(current_user)
 
 		end 
 	end 
