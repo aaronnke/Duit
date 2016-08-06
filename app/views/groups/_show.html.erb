@@ -2,7 +2,7 @@
 <b> Members </b>
 <% @group.users.each do |user| %>
 	<div>
-	<li><%= user.name %></li> 
+	<li><%= user.name %></li>
 	<% if user.id == @group.master_id %>
 		<p>Role: MASTER </p>
 	<%end%>

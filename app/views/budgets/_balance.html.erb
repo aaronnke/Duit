@@ -1,2 +1,4 @@
-<p> <%= self.description %> </p>
-<p> <%= self.amount %> </p>
+<% @balances.each do |balance| %>
+  <p> <%= balance.tag.category %> </p>
+  <p> <%= balance.amount %> </p>
+<% end %>
