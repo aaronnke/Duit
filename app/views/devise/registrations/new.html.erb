@@ -31,8 +31,8 @@
     <%= f.file_field :avatar %>
     <% if f.object.avatar.present? %>
       <%= image_tag f.object.avatar.thumb.url %>
-      <%= f.label :remove_image %>
-      <%= f.check_box :remove_image %>
+      <%= f.label :remove_avatar %>
+      <%= f.check_box :remove_avatar %>
     <% end %>
   </div>
 
