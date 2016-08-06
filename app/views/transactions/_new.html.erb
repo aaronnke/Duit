@@ -1,0 +1,5 @@
+<%= form_for @transaction, url: bank_account_transactions_path(current_user.bank_accounts.first), method: :post do |f| %>
+  <%= f.text_field :tag %>
+  <%= f.number_field :amount %>
+  <%= f.submit "Add Transaction" %>
+<% end %>

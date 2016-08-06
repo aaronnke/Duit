@@ -9,8 +9,11 @@ Rails.application.routes.draw do
   root 'pages#index'
 
   get "users/:id/profile" => "pages#profile", as: :user_profile
+  get "users/:id/dashboard" => "pages#dashboard", as: :user_dashboard
 
-  resources :bank_accounts
+  resources :bank_accounts do
+    resource :transactions
+  end
 
   resources :budgets do
     post "/create_new_income" => "budget_types#create_new_income", as: :create_new_income

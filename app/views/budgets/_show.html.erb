@@ -3,14 +3,16 @@
   <% if current_user.bank_accounts.first.budgets.empty? %>
 
     <%= form_for @budget, controller: "budgets#create", :html => {:method => :post} do |f| %>
+      <%= f.text_field :name %>
       <%= f.date_field :start_date %>
       <%= f.date_field :end_date %>
       <%= f.submit "Create Budget" %>
     <% end %>
 
   <% else %>
-    <h1> Start Date: <%= @budget.start_date %> | End Date: <%= @budget.end_date %> </h1>
-    <h1> Incomes: <%= @incomes.sum(:amount) %> </h1>
+    <h1> <%= @budget.name %> </h1>
+    <h3> Start Date: <%= @budget.start_date %> | End Date: <%= @budget.end_date %> </h3>
+    <h3> Incomes: <%= @incomes.sum(:amount) %> </h3>
     <%= render "budget_types/new_income" %>
     <%= render "budgets/income" %>
 

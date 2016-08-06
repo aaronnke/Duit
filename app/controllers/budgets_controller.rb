@@ -11,7 +11,7 @@ class BudgetsController < ApplicationController
   private
 
   def budget_params
-    params.require(:budget).permit(:start_date, :end_date)
+    params.require(:budget).permit(:name, :start_date, :end_date)
   end
 
 end
