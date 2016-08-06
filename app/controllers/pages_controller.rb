@@ -18,4 +18,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def dashboard
+    @bank_account = current_user.bank_accounts.first
+    @transaction = Transaction.new
+    @transactions = @bank_account.transactions
+  end
+
 end
