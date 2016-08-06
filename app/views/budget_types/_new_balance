@@ -1,5 +1,0 @@
-<%= form_for :new_balance, url: create_new_balance_path(@budget.id), :html => {:method => :post} do |f| %>
-  <%= f.text_field :tag %>
-  <%= f.number_field :amount %>
-  <%= f.submit "Add" %>
-<% end %>

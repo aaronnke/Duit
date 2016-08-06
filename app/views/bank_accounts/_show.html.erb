@@ -11,6 +11,6 @@
 	Balance:
 	<%= number_to_currency(current_user.bank_accounts[0].balance, precision: 2)%>
 <%else%>
-	<%=render 'form'%>
+	<%=render 'bank_accounts/form'%>
 
 <%end%>

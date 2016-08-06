@@ -1,2 +1,4 @@
-<p> <%= self.description %> </p>
-<p> <%= self.amount %> </p>
+<% @incomes.each do |income| %>
+  <p> <%= income.tag.category %> </p>
+  <p> <%= income.amount %> </p>
+<% end %>

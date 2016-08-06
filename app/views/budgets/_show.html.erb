@@ -9,18 +9,19 @@
     <% end %>
 
   <% else %>
-
-    <h1> Incomes </h1>
+    <h1> Start Date: <%= @budget.start_date %> | End Date: <%= @budget.end_date %> </h1>
+    <h1> Incomes: <%= @incomes.sum(:amount) %> </h1>
     <%= render "budget_types/new_income" %>
-    <%= render @incomes %>
+    <%= render "budgets/income" %>
 
-    <h1> Expenses </h1>
+    <h1> Expenses: <%= @expenses.sum(:amount) %>  </h1>
     <%= render "budget_types/new_expense" %>
-    <%= render @expenses %>
+    <%= render "budgets/expense" %>
 
-    <h1> Balance </h1>
+    <h1> Balances: <%= @incomes.sum(:amount) - @expenses.sum(:amount) %>  </h1>
     <%= render "budget_types/new_balance" %>
-    <%= render @balances %>
+    <%= render "budgets/balance" %>
+    <p> Leftover: <%= @incomes.sum(:amount) - @expenses.sum(:amount) - @balances.sum(:amount) %> </p>
 
   <% end %>
 
