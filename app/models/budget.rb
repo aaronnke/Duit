@@ -3,16 +3,15 @@ class Budget < ActiveRecord::Base
   has_many :budget_types
 
   def get_incomes
-    self.budget_types.where(category: "income")
+    self.budget_types.joins(:tag).where('tags.category': "income")
   end
 
   def get_expenses
-    self.budget_types.where(category: "expense")
+    self.budget_types.joins(:tag).where('tags.category': "expense")
   end
 
   def get_balances
-    self.budget_types.where(category: "balance")
+    self.budget_types.joins(:tag).where('tags.category': "balance")
   end
-
 
 end
