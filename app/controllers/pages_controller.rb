@@ -6,15 +6,15 @@ class PagesController < ApplicationController
   data_table.new_column('string', 'Type' )
   data_table.new_column('number', 'Expenses')
 
-  formatter = new GoogleVisualr::DataTable.new({decimalSymbol: ',',groupingSymbol: '.', negativeColor: 'red', negativeParens: true, prefix: '$ '});
+  # formatter = new GoogleVisualr::DataTable.new({decimalSymbol: ',',groupingSymbol: '.', negativeColor: 'red', negativeParens: true, prefix: '$ '});
 
 
 # Add Rows and Values
 data_table.add_rows([
-    ['Food', formatter.format(1000)],
-    ['Entertainment', formatter.format(1170)],
-    ['Mortgage', formatter.format(660)],
-    ['Student Loan', formatter.format(1030)]
+    ['Food', 1000],
+    ['Entertainment', 1170],
+    ['Mortgage', 660],
+    ['Student Loan', 1030]
 ])
 option = { width: 400, height: 240, pieHole: 0.6,legend: 'none',pieSliceText: 'none'}
 
