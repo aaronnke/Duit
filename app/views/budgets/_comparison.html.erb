@@ -1,16 +1,17 @@
-<h1> ------------------------------- </h1>
-<h3> Total Income: <%= @total_income_transaction %>/<%= @total_budget_income %> </h3>
-<% @budget_incomes.each do |income| %>
-  <h5> <%= income.tag.description %> </h5>
-  <p> <%= @bank_account.get_tag_transactions_sum(income.tag.description) %> / <%= income.amount %> </p>
-<% end %>
-<h3> Total Expense: <%= @total_expense_transaction %>/<%= @total_budget_expense %> </h3>
-<% @budget_expenses.each do |expense| %>
-  <h5> <%= expense.tag.description %> </h5>
-  <p> <%= @bank_account.get_tag_transactions_sum(expense.tag.description) %> / <%= expense.amount %> </p>
-<% end %>
-<h3> Total Balance: <%= @total_balance_transaction %>/<%= @total_budget_balance %> </h3>
-<% @budget_balances.each do |balance| %>
-  <h5> <%= balance.tag.description %> </h5>
-  <p> <%= @bank_account.get_tag_transactions_sum(balance.tag.description) %> / <%= balance.amount %> </p>
-<% end %>
+<div class="comparison-box">
+  <h3> Total Income: <%= @total_income_transaction[@user_index] %>/<%= @total_budget_income[@user_index] %> </h3>
+  <% @budget_incomes[@user_index].each do |income| %>
+    <h5> <%= income.tag.description %> </h5>
+    <p> <%= @bank_account.get_tag_transactions_sum(income.tag.description) %> / <%= income.amount %> </p>
+  <% end %>
+  <h3> Total Expense: <%= @total_expense_transaction[@user_index] %>/<%= @total_budget_expense[@user_index] %> </h3>
+  <% @budget_expenses[@user_index].each do |expense| %>
+    <h5> <%= expense.tag.description %> </h5>
+    <p> <%= @bank_account.get_tag_transactions_sum(expense.tag.description) %> / <%= expense.amount %> </p>
+  <% end %>
+  <h3> Total Balance: <%= @total_balance_transaction[@user_index] %>/<%= @total_budget_balance[@user_index] %> </h3>
+  <% @budget_balances[@user_index].each do |balance| %>
+    <h5> <%= balance.tag.description %> </h5>
+    <p> <%= @bank_account.get_tag_transactions_sum(balance.tag.description) %> / <%= balance.amount %> </p>
+  <% end %>
+</div>
