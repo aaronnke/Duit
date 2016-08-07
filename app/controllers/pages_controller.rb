@@ -10,37 +10,26 @@ class PagesController < ApplicationController
   # formatter = new GoogleVisualr::DataTable.new({decimalSymbol: ',',groupingSymbol: '.', negativeColor: 'red', negativeParens: true, prefix: '$ '});
 
 
-# Add Rows and Values
-data_table.add_rows([
-    ['Food', 1000],
-    ['Entertainment', 1170],
-    ['Mortgage', 660],
-    ['Student Loan', 1030]
-])
+  # Add Rows and Values
+  data_table.add_rows([
+      ['Food', 1000],
+      ['Entertainment', 1170],
+      ['Mortgage', 660],
+      ['Student Loan', 1030]
+  ])
 option = { width: 400, height: 240, pieHole: 0.6,legend: 'none',pieSliceText: 'none'}
 
 @chart = GoogleVisualr::Interactive::PieChart.new(data_table, option)
 
 
-    
-    unless current_user.bank_accounts.empty?
-      if current_user.bank_accounts.first.budgets.empty?
-        @budget = current_user.bank_accounts.first.budgets.new
-      else
-        @budget = current_user.bank_accounts.first.budgets.last
-      end
-
-      @incomes = @budget.get_incomes
-      @expenses = @budget.get_expenses
-      @balances = @budget.get_balances
-
 
     #------------------ budgets -------------------#
-    if current_user.bank_accounts.first.budgets.empty?
-      @budget = @bank_accounts.budgets.new
-
-    else
-      set_budgets
+    unless current_user.bank_accounts.empty?
+      if current_user.bank_accounts.first.budgets.empty?
+        @budget = @bank_accounts.budgets.new
+      else
+        set_budgets
+      end
     end
 
     #------------------ groups -------------------#
