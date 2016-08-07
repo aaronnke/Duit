@@ -1,32 +1,14 @@
 class PagesController < ApplicationController
-  before_action :set_bank_account
+  before_action :set_bank_account, only: [:profile, :dashboard]
 
   def profile
-
-  data_table = GoogleVisualr::DataTable.new
-  data_table.new_column('string', 'Type' )
-  data_table.new_column('number', 'Expenses')
-
-  # formatter = new GoogleVisualr::DataTable.new({decimalSymbol: ',',groupingSymbol: '.', negativeColor: 'red', negativeParens: true, prefix: '$ '});
-
-
-  # Add Rows and Values
-  data_table.add_rows([
-      ['Food', 1000],
-      ['Entertainment', 1170],
-      ['Mortgage', 660],
-      ['Student Loan', 1030]
-  ])
-option = { width: 400, height: 240, pieHole: 0.6,legend: 'none',pieSliceText: 'none'}
-
-@chart = GoogleVisualr::Interactive::PieChart.new(data_table, option)
-
-
+  
+  @users = User.all 
 
     #------------------ budgets -------------------#
     unless current_user.bank_accounts.empty?
       if current_user.bank_accounts.first.budgets.empty?
-        @budget = @bank_accounts.budgets.new
+        @budget = @bank_account.budgets.new
       else
         set_budgets
       end
@@ -63,18 +45,33 @@ option = { width: 400, height: 240, pieHole: 0.6,legend: 'none',pieSliceText: 'n
     end
   end
 
-  def set_budgets
+ def set_budgets
 
-    @budget = current_user.bank_accounts.first.budgets.last
-    @budget_incomes = @budget.get_incomes
-    @budget_expenses = @budget.get_expenses
-    @budget_balances = @budget.get_balances
+   if current_user.groups.empty?
+     @group_users = [current_user]
+   else
+     @group_users = current_user.groups.first.users
+   end
 
-    @total_budget_income = @budget_incomes.sum(:amount)
-    @total_budget_expense = @budget_expenses.sum(:amount)
-    @total_budget_balance = @budget_balances.sum(:amount)
+   @budget = []
+   @budget_incomes = []
+   @budget_expenses = []
+   @budget_balances = []
+   @total_budget_income = []
+   @total_budget_expense = []
+   @total_budget_balance = []
 
-  end
+     @group_users.each.with_index do |user, index|
+     @budget << user.bank_accounts.first.budgets.last
+     @budget_incomes << @budget[index].get_incomes
+     @budget_expenses << @budget[index].get_expenses
+     @budget_balances << @budget[index].get_balances
+     @total_budget_income << @budget_incomes[index].sum(:amount)
+     @total_budget_expense << @budget_expenses[index].sum(:amount)
+     @total_budget_balance << @budget_balances[index].sum(:amount)
+   end
+
+ end
 
   def set_transactions
 

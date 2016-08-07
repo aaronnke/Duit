@@ -4,4 +4,6 @@
 	<p> Group Pass: <%= @group.group_token %> </p>
 	<%= link_to "Delete Group", group_path(@group), method: :delete, :data => {:confirm => "Are you sure?"} %>
 	<%= link_to "Edit Group", edit_group_path(@group) %>
+<% else %>
+	<%= link_to "Leave Group", leave_group_path, controller: "groups#leave", :data => {:confirm => "Are you sure?"}, method: :post %>
 <% end %>
