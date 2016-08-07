@@ -1,24 +1,29 @@
 
-<div class= "mdl-grid">	
-	<% @group_users.each_with_index do |user, index| %>
-	<%= button_to user_dashboard_path(current_user.id), method: :get, params: {user_index: "#{index}"} do %> 
-	<div class="mdl-cell mdl-cell--3-col"> 
+<div class= "mdl-grid">
+	<% @group_users.each_with_index do |user| %>
+	<%= button_to user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{user.id}", month: "#{@month}" } do %>
+	<div class="mdl-cell mdl-cell--3-col">
 	<% if user.avatar.present? %>
 	<%= image_tag user.avatar.thumb %>
 	<% end %>
 	<h3> <%= user.name %> </h3>
 	</div>
-	<% end %> 
+	<% end %>
 	<%end%>
 </div>
 
-<h3> <%= @budget[@user_index].start_date %> | <%= @budget[@user_index].end_date %> </h3>
+<%= button_to "<", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month - 1}"} %>
+<h3> <%= @budget.start_date %> | <%= @budget.end_date %> </h3>
+<%= button_to ">", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month + 1}"} %>
 
-<div id='chart'></div>
-    <%= render_chart(@chart, 'chart') %>
-    <%= render_chart(@chart, 'chart') %>
+<div id='chart'>
+  <%= render_chart(@chart, 'chart') %>
+</div>
 
-</br>
+<div id="chart2">
+    <%= render_chart(@chart, 'chart2') %>
+  </div>
+
 
      <div class="w3-progress-container">
       <div class="w3-progressbar" style="width: <%=@progressbarnumber[0] %>%; background-color: <%=@colorarray[0] %>"></div>
