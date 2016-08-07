@@ -31,25 +31,28 @@
     <% end %>
 
   <% else %>
+
+    <%= button_to "<", user_profile_path(current_user.id), method: :get, params: {month: "#{@month - 1}"} %>
     <h1> <%= @budget.first.name %> </h1>
+    <%= button_to ">", user_profile_path(current_user.id), method: :get, params: {month: "#{@month + 1}"} %>
+
     <h2> Start Date: <%= @budget.first.start_date %> | End Date: <%= @budget.first.end_date %> </h2>
-    <p> ------------------------------------------------ </p>
-  
+
   <div class="mdl-grid">
     <% @group_users.each do |user| %>
     <div class = "mdl-cell mdl-cell--3-col">
-    <%= user.name %><br>
-    <%= image_tag user.avatar.thumb %>
+      <%= user.name %><br>
+      <%= image_tag user.avatar.thumb %>
     </div>
-    <% end %> 
+    <% end %>
   </div>
 
   <div class="mdl-grid">
     <% @group_users.each_with_index do |user, index| %>
-  <div class="mdl-cell mdl-cell--3-col"> 
+  <div class="mdl-cell mdl-cell--3-col">
     <h3> Incomes: <%= @total_budget_income[index] %> </h3>
     <%if user.id == current_user.id %>
-    <%= render "budget_types/new_income", index: index %>
+      <%= render "budget_types/new_income", index: index %>
     <% end %>
     <%= render "budgets/income", index: index %>
   </div>
@@ -67,7 +70,7 @@
     </div>
     <%end%>
     </div>
-  
+
   <div class="mdl-grid">
    <% @group_users.each_with_index do |user, index| %>
     <div class= "mdl-cell mdl-cell--3-col">
@@ -79,7 +82,7 @@
     </div>
     <%end%>
     </div>
-  
+
   <div class="mdl-grid">
    <% @group_users.each_with_index do |user, index| %>
     <div class="mdl-cell mdl-cell--3-col">

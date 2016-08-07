@@ -1,5 +1,8 @@
 class PagesController < ApplicationController
+  before_action :set_month, only: [:profile, :dashboard]
+  before_action :set_user, only: [:profile, :dashboard]
   before_action :set_bank_account, only: [:profile, :dashboard]
+
 
   def profile
 
@@ -8,7 +11,8 @@ class PagesController < ApplicationController
       if current_user.bank_accounts.first.budgets.empty?
         @budget = @bank_account.budgets.new
       else
-        set_budgets
+        set_group_users
+        set_profile_budgets
       end
     end
 
@@ -66,103 +70,102 @@ class PagesController < ApplicationController
     data_table.format(formatter)
     @chart = GoogleVisualr::Interactive::LineChart.new(data_table, opts)
 
+
     @transaction = Transaction.new
 
-    @user_index = (params[:user_index] ||= 0).to_i
+   set_group_users
 
-    set_budgets
+   set_dashboard_budgets
 
-    set_transactions
-
-    #groups display
-    if current_user.groups.empty?
-     @group_users = [current_user]
-   else
-     @group_users = current_user.groups.first.users
-   end
-
-    @user_id = params[:user_id]
+   set_dashboard_transactions
 
   end
 
+
+# ================================================================================ #
+# ================================ Sub-methods =================================== #
+# ================================================================================ #
 
   private
 
-  def set_bank_account
-    if current_user.bank_accounts.empty?
-      @bank_account = BankAccount.new
+  def set_month
+    @month = (params[:month] ||= Date.today.month).to_i
+    @parsed_month = Date::MONTHNAMES[@month]
+  end
+
+
+  def set_user
+    if params[:user_id].present?
+      @user = User.find(params[:user_id])
     else
-      @bank_account = current_user.bank_accounts.first
+      @user = current_user
     end
   end
 
- def set_budgets
 
-   if current_user.groups.empty?
-     @group_users = [current_user]
-   else
-     @group_users = current_user.groups.first.users
-   end
-
-   @budget = []
-   @budget_incomes = []
-   @budget_expenses = []
-   @budget_balances = []
-   @total_budget_income = []
-   @total_budget_expense = []
-   @total_budget_balance = []
-
-     @group_users.each.with_index do |user, index|
-     @budget << user.bank_accounts.first.budgets.last
-     @budget_incomes << @budget[index].get_incomes
-     @budget_expenses << @budget[index].get_expenses
-     @budget_balances << @budget[index].get_balances
-     @total_budget_income << @budget_incomes[index].sum(:amount)
-     @total_budget_expense << @budget_expenses[index].sum(:amount)
-     @total_budget_balance << @budget_balances[index].sum(:amount)
-   end
-
- end
+  def set_bank_account
+    if @user.bank_accounts.empty?
+      @bank_account = BankAccount.new
+    else
+      @bank_account = @user.bank_accounts.first
+    end
+  end
 
 
-  def set_transactions
-
+  def set_group_users
     if current_user.groups.empty?
       @group_users = [current_user]
     else
       @group_users = current_user.groups.first.users
     end
+  end
 
-    @bank_accounts = []
-    @transactions = []
-    @total_income_transaction = []
-    @total_expense_transaction = []
-    @total_balance_transaction = []
 
-    @group_users.each_with_index do |user, index|
-      @bank_accounts << user.bank_accounts.first
-      @transactions << @bank_accounts[index].transactions
-      @total_income_transaction << @bank_accounts[index].total_income_transaction
-      @total_expense_transaction << @bank_accounts[index].total_expense_transaction
-      @total_balance_transaction << @bank_accounts[index].total_balance_transaction
+  def set_profile_budgets
+
+    @budget = []
+    @budget_incomes = []
+    @budget_expenses = []
+    @budget_balances = []
+    @total_budget_income = []
+    @total_budget_expense = []
+    @total_budget_balance = []
+
+    @group_users.each.with_index do |user, index|
+      @budget << user.bank_accounts.first.budgets.find_by(name: @parsed_month)
+      @budget_incomes << @budget[index].get_incomes
+      @budget_expenses << @budget[index].get_expenses
+      @budget_balances << @budget[index].get_balances
+      @total_budget_income << @budget_incomes[index].sum(:amount)
+      @total_budget_expense << @budget_expenses[index].sum(:amount)
+      @total_budget_balance << @budget_balances[index].sum(:amount)
     end
 
   end
 
 
-  # def set_all_month_budgets
-  #
-  #   @all_month_budgets = []
-  #
-  #   @group_users.each do |user, index|
-  #     @all_month_budgets << user.budgets
-  #
-  #     @all_month_budgets[index].each do |budget|
-  #
-  #     end
-  #   end
-  #
-  # end
+  def set_dashboard_budgets
 
+     @budget = @bank_account.budgets.find_by(name: @parsed_month)
+     @budget_incomes = @budget.get_incomes
+     @budget_expenses = @budget.get_expenses
+     @budget_balances = @budget.get_balances
+     @total_budget_income = @budget_incomes.sum(:amount)
+     @total_budget_expense = @budget_expenses.sum(:amount)
+     @total_budget_balance = @budget_balances.sum(:amount)
+
+  end
+
+
+  def set_dashboard_transactions
+
+    month_start = Date.parse(@parsed_month).at_beginning_of_month
+    month_end = Date.parse(@parsed_month).end_of_month
+    @transactions = @bank_account.transactions.where(created_at: month_start..month_end)
+    @total_income_transaction = @bank_account.total_transactions_sum_by_category_and_month(category: "income", month_start: month_start, month_end: month_end)
+    @total_expense_transaction = @bank_account.total_transactions_sum_by_category_and_month(category: "expense", month_start: month_start, month_end: month_end)
+    @total_balance_transaction = @bank_account.total_transactions_sum_by_category_and_month(category: "balance", month_start: month_start, month_end: month_end)
+
+  end
 
 end

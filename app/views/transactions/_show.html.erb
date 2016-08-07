@@ -1,5 +1,11 @@
 <div class="transaction-box">
-  <h4> Date  |  Description  |  Tag  |  Amount </h4>
-  <%= render "transactions/new" %>
+
+  <h4> Date (auto-filled-in) |  Description  |  Tag  |  Amount </h4>
+
+  <% if @user == current_user %>
+    <%= render "transactions/new" %>
+  <% end %>
+
   <%= render "transactions/index" %>
+
 </div>
