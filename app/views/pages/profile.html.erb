@@ -1,6 +1,9 @@
 
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--6-col">
+  	<div id='chart'></div>
+<%= render_chart(@chart, 'chart') %>
+
     <%= render 'bank_accounts/show' %>
   </div>
   <div class="mdl-cell mdl-cell--6-col">
