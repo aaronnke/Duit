@@ -1,4 +1,4 @@
-<%= form_for :new_expense, url: budget_create_new_expense_path(@budget.id), method: :post  do |f| %>
+<%= form_for :new_expense, url: budget_create_new_expense_path(@budget[index].id), method: :post  do |f| %>
   <%= f.text_field :tag %>
   <%= f.number_field :amount %>
   <%= f.submit "Add" %>

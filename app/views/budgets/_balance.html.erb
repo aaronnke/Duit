@@ -1,3 +1,3 @@
-<% @budget_balances.each do |balance| %>
+<% @budget_balances[index].each do |balance| %>
   <p> <%= balance.tag.description %>   <%= balance.amount %> </p>
 <% end %>

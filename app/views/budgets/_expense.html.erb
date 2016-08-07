@@ -1,3 +1,3 @@
-<% @budget_expenses.each do |expense| %>
+<% @budget_expenses[index].each do |expense| %>
   <p> <%= expense.tag.description %>   <%= expense.amount %> </p>
 <% end %>

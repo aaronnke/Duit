@@ -4,13 +4,18 @@
   <title>Duit</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
   <%= csrf_meta_tags %>
 <script src='https://www.google.com/jsapi'></script>
   
 </head>
 <body>
 	<%= render "/layouts/navbar" %> 
-<div class="container">
+<div class="container"><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.indigo-pink.min.css">
+<script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key %>">
       <%= value %>

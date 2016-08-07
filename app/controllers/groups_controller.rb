@@ -54,6 +54,15 @@ class GroupsController < ApplicationController
 		end 
 	end 
 
+	def leave 
+		@user = current_user 
+		@group_leave = Allocation.find_by(user_id: current_user.id)
+		@group_leave.destroy
+		flash[:notice] = "You've left the group. They will miss you!"
+
+		redirect_to user_profile_path(current_user)
+	end 
+
 private 
 	
 	def group_params 
