@@ -69,11 +69,20 @@ class PagesController < ApplicationController
 
     @transaction = Transaction.new
 
-    @user_index = 0
+    @user_index = (params[:user_index] ||= 0).to_i
 
     set_budgets
 
     set_transactions
+
+    #groups display
+    if current_user.groups.empty?
+     @group_users = [current_user]
+   else
+     @group_users = current_user.groups.first.users
+   end
+
+    @user_id = params[:user_id]
 
   end
 
