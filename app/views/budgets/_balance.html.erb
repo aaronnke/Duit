@@ -1,4 +1,3 @@
-<% @balances.each do |balance| %>
-  <p> <%= balance.tag.category %> </p>
-  <p> <%= balance.amount %> </p>
+<% @budget_balances.each do |balance| %>
+  <p> <%= balance.tag.description %>   <%= balance.amount %> </p>
 <% end %>

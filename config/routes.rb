@@ -4,7 +4,8 @@ Rails.application.routes.draw do
 
   post "groups/join" => "groups#join", as: "join_group"
 
-  devise_for :users, :controllers => { registrations: 'registrations'}
+  devise_for :users, :controllers => { registrations: 'registrations', omniauth_callbacks: 'users/omniauth_callbacks'}
+  #devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   root 'pages#index'
 
