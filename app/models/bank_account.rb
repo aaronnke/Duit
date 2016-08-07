@@ -3,7 +3,7 @@ class BankAccount < ActiveRecord::Base
   has_many :transactions
   has_many :budgets
   validates :bank_account_number,uniqueness: true, presence: true, length: { is: 10 }
-  after_create :generate_annual_budget 
+  after_create :generate_annual_budget
 
   def total_income_transaction
     self.transactions.joins(:tag).where('tags.category': 'income').sum(:amount)
@@ -21,7 +21,7 @@ class BankAccount < ActiveRecord::Base
     self.transactions.joins(:tag).where('tags.description': tag_description).sum(:amount)
   end
 
-  def generate_annual_budget 
+  def generate_annual_budget
     self.budgets.create(name: "January", start_date: Date.parse("January"), end_date: Date.parse("January").end_of_month)
     self.budgets.create(name: "February", start_date: Date.parse("February"), end_date: Date.parse("February").end_of_month)
     self.budgets.create(name: "March", start_date: Date.parse("March"), end_date: Date.parse("March").end_of_month)
@@ -34,5 +34,5 @@ class BankAccount < ActiveRecord::Base
     self.budgets.create(name: "October", start_date: Date.parse("October"), end_date: Date.parse("October").end_of_month)
     self.budgets.create(name: "November", start_date: Date.parse("November"), end_date: Date.parse("November").end_of_month)
     self.budgets.create(name: "December", start_date: Date.parse("December"), end_date: Date.parse("December").end_of_month)
-  end 
+  end
 end

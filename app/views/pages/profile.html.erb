@@ -1,22 +1,9 @@
 <div class="mdl-grid">
   <div class="mdl-cell mdl-cell--6-col">
-
-
-  	<div id='chart'></div>
-	<%= render_chart(@chart, 'chart') %>
-	<%= render_chart(@chart, 'chart') %>
-
-</br>
-
-	 <div class="w3-progress-container">
-	  <div class="w3-progressbar" style="width: <%=@progressbarnumber[0] %>%; background-color: <%=@colorarray[0] %>"></div>
-
-
-	</div>
     <%= render 'bank_accounts/show' %>
-  </div>
+	</div>
 
-  <div class="mdl-cell mdl-cell--6-col">
+<div class="mdl-cell mdl-cell--6-col">
   <%= render "groups/interface" %>
   </div>
 </div>
