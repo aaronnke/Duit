@@ -2,6 +2,28 @@ class PagesController < ApplicationController
   before_action :set_bank_account, only: [:profile, :dashboard]
 
   def profile
+
+    #------------------ budgets -------------------#
+    unless current_user.bank_accounts.empty?
+      if current_user.bank_accounts.first.budgets.empty?
+        @budget = @bank_account.budgets.new
+      else
+        set_budgets
+      end
+    end
+
+    #------------------ groups -------------------#
+    if current_user.groups.empty?
+      @group = Group.new
+    else
+      @group = current_user.groups.first
+    end
+
+  end
+
+
+  def dashboard
+
     #Donut Pie Chart
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Type' )
@@ -44,28 +66,6 @@ class PagesController < ApplicationController
     formatter.columns(1) # Apply to 2nd Column
     data_table.format(formatter)
     @chart = GoogleVisualr::Interactive::LineChart.new(data_table, opts)
-
-
-    #------------------ budgets -------------------#
-    unless current_user.bank_accounts.empty?
-      if current_user.bank_accounts.first.budgets.empty?
-        @budget = @bank_account.budgets.new
-      else
-        set_budgets
-      end
-    end
-
-    #------------------ groups -------------------#
-    if current_user.groups.empty?
-      @group = Group.new
-    else
-      @group = current_user.groups.first
-    end
-
-  end
-
-
-  def dashboard
 
     @transaction = Transaction.new
 
