@@ -1,4 +1,3 @@
-<% @incomes.each do |income| %>
-  <p> <%= income.tag.category %> </p>
-  <p> <%= income.amount %> </p>
+<% @budget_incomes.each do |income| %>
+  <p> <%= income.tag.description %>   <%= income.amount %> </p>
 <% end %>

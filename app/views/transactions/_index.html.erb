@@ -1,4 +1,3 @@
 <% @transactions.each do |transaction| %>
-  <p> <%= transaction.tag.category %> </p>
-  <p> <%= transaction.amount %> </p>
+  <p> <%= transaction.created_at.day %> | <%= transaction.description %> | <%= transaction.tag.description %> | <%= transaction.amount %>  </p>
 <% end %>
