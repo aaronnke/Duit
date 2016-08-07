@@ -1,3 +1,20 @@
 // Place all the styles related to the budgets controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.w3-progress-container{
+	border-radius: 10px;
+	width:100%;
+	height:0.9em;
+	position:relative;
+	background-color:#f1f1f1;
+}
+
+.w3-progressbar{
+	border-radius: 10px;
+
+	height:100%;
+	position:absolute;
+	line-height:inherit;
+	z-index: 20;
+}

@@ -23,7 +23,6 @@ class PagesController < ApplicationController
 
 
   def dashboard
-
     #Donut Pie Chart
     data_table = GoogleVisualr::DataTable.new
     data_table.new_column('string', 'Type' )

@@ -1,10 +1,13 @@
 <h3> <%= @budget[@user_index].start_date %> | <%= @budget[@user_index].end_date %> </h3>
 
-<div id='chart'></div>
-    <%= render_chart(@chart, 'chart') %>
-    <%= render_chart(@chart, 'chart') %>
+<div id='chart'>
+  <%= render_chart(@chart, 'chart') %>
+</div>
 
-</br>
+<div id="chart2">
+    <%= render_chart(@chart, 'chart2') %>
+  </div>
+
 
      <div class="w3-progress-container">
       <div class="w3-progressbar" style="width: <%=@progressbarnumber[0] %>%; background-color: <%=@colorarray[0] %>"></div>
