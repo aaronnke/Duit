@@ -1,5 +1,11 @@
-<h3> <%= @budget.start_date %> | <%= @budget.end_date %> </h3>
+<h3> <%= @budget[@user_index].start_date %> | <%= @budget[@user_index].end_date %> </h3>
+
+<button class="transaction-button"> Transaction </button>
+<button class="comparison-button"> Comparison </button>
+<button class="summary-button"> Summary </button>
 
 <%= render "transactions/show" %>
 
 <%= render "budgets/comparison" %>
+
+<%= render "budgets/summary" %>
