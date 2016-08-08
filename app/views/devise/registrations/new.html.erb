@@ -1,4 +1,7 @@
-<% header "Sign Up" %>
+<div class="row pop-up">
+  <div class="box small-6 large-centered">
+    <a href="#" class="close-button">&#10006;</a>
+    <center><h2>Sign Up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
@@ -43,3 +46,6 @@
 <% end %>
 
 <%= render "devise/shared/links" %>
+  </div>
+</div>
+</center>
