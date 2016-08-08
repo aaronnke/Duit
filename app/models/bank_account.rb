@@ -14,17 +14,10 @@ class BankAccount < ActiveRecord::Base
   end
 
   def generate_annual_budget
-    self.budgets.create(name: "January", start_date: Date.parse("January"), end_date: Date.parse("January").end_of_month)
-    self.budgets.create(name: "February", start_date: Date.parse("February"), end_date: Date.parse("February").end_of_month)
-    self.budgets.create(name: "March", start_date: Date.parse("March"), end_date: Date.parse("March").end_of_month)
-    self.budgets.create(name: "April", start_date: Date.parse("April"), end_date: Date.parse("April").end_of_month)
-    self.budgets.create(name: "May", start_date: Date.parse("May"), end_date: Date.parse("May").end_of_month)
-    self.budgets.create(name: "June", start_date: Date.parse("June"), end_date: Date.parse("June").end_of_month)
-    self.budgets.create(name: "July", start_date: Date.parse("July"), end_date: Date.parse("July").end_of_month)
-    self.budgets.create(name: "August", start_date: Date.parse("August"), end_date: Date.parse("August").end_of_month)
-    self.budgets.create(name: "September", start_date: Date.parse("September"), end_date: Date.parse("September").end_of_month)
-    self.budgets.create(name: "October", start_date: Date.parse("October"), end_date: Date.parse("October").end_of_month)
-    self.budgets.create(name: "November", start_date: Date.parse("November"), end_date: Date.parse("November").end_of_month)
-    self.budgets.create(name: "December", start_date: Date.parse("December"), end_date: Date.parse("December").end_of_month)
+    12.times do |number|
+      month = Date::MONTHNAMES[number + 1]
+      self.budgets.create(name: month, start_date: Date.parse(month), end_date: Date.parse(month).end_of_month)
+    end
   end
+  
 end
