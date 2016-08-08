@@ -1,0 +1,41 @@
+<div class="mdl-grid overview">
+
+  <div class="mdl-cell mdl-cell--6-col">
+    <h3> Incomes </h3>
+    <% @group_users.each_with_index do |user, index| %>
+      <p> <%= user.name %> </p>
+      <p> <%= @overview_incomes_transaction[index] %> / <%= @overview_incomes_budget[index] %> </p>
+      <div class="progressbar-container">
+        <div class="progressbar-filler" style='width: <%= @overview_incomes_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mdl-cell mdl-cell--6-col">
+    <h3> Expenses </h3>
+    <% @group_users.each_with_index do |user, index| %>
+    <p> <%= user.name %> </p>
+    <p> <%= @overview_expenses_transaction[index] %> / <%= @overview_expenses_budget[index] %> </p>
+    <div class="progressbar-container">
+      <div class="progressbar-filler" style='width: <%= @overview_expenses_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
+      </div>
+    </div>
+    <% end %>
+  </div>
+
+</div>
+
+<div class="mdl-grid overview">
+  <div class="mdl-cell mdl-cell--6-col">
+    <h3> Balances </h3>
+    <% @group_users.each_with_index do |user, index| %>
+    <p> <%= user.name %> </p>
+    <p> <%= @overview_balances_transaction[index] %> / <%= @overview_balances_budget[index] %> </p>
+    <div class="progressbar-container">
+      <div class="progressbar-filler" style='width: <%= @overview_balances_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
+      </div>
+    </div>
+    <% end %>
+  </div>
+</div>

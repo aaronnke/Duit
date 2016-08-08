@@ -11,7 +11,7 @@
     <h5> <%= expense.tag.description %> </h5>
     <p> <%= @bank_account.get_tag_transactions_sum(expense.tag.description) %> / <%= expense.amount %> </p>
   <% end %>
-  
+
   <h3> Total Balance: <%= @total_balance_transaction %>/<%= @total_budget_balance %> </h3>
   <% @budget_balances.each do |balance| %>
     <h5> <%= balance.tag.description %> </h5>
