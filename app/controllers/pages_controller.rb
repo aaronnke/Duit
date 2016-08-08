@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   before_action :set_user, only: [:profile, :dashboard]
   before_action :set_bank_account, only: [:profile, :dashboard]
   before_action :set_colors, only: [:dashboard]
+  before_action :validate_dashboard_access, only: [:dashboard]
 
 
   def profile
@@ -62,6 +63,13 @@ class PagesController < ApplicationController
 # ================================================================================ #
 
   private
+
+  def validate_dashboard_access
+    if current_user.bank_accounts.empty?
+      flash[:notice] = "Please register a bank account first."
+      redirect_to user_profile_path
+    end
+  end
 
   def set_month
     @month = (params[:month] ||= Date.today.month).to_i

@@ -2,6 +2,53 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import 'bootstrap/theme';
+$navbar-color: #e57373;
+
+.navbar {
+  height: 10vh;
+  font-size: 16px;
+  background-color: $navbar-color;
+
+  .navbar-button {
+    background-color: inherit;
+    width: 10%;
+    height: inherit;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    position: absolute;
+
+    .navbar-link {
+      top: 30%;
+      position: relative;
+      color: white;
+    }
+
+  }
+
+  .logout-button {
+    left: 90%;
+  }
+
+  .signup-button {
+    left: 90%;
+  }
+
+  .login-button {
+    left: 80%;
+  }
+
+  .user-profile-button {
+    left: 80%;
+  }
+
+  .user-dashboard-button {
+    left: 70%;
+  }
+
+}
+
+
+.content-container {
+  position: relative;
+}
