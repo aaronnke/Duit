@@ -16,18 +16,69 @@
 <h3> <%= @budget.start_date %> | <%= @budget.end_date %> </h3>
 <%= button_to ">", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month + 1}"} %>
 
-<div id='chart'>
-  <%= render_chart(@chart, 'chart') %>
+<div class = "mdl-grid" >
+  <div class= "mdl-cell mdl-cell--3-col">
+    <%= button_to "Planned Expenses", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "expense"} %>
+  </div>
+
+    <div class= "mdl-cell mdl-cell--3-col">
+      <%= button_to "Actual Expenses" %>
+  </div>
+
+    <div class= "mdl-cell mdl-cell--3-col">
+      <%= button_to "Planned Income", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "income"} %>
+  </div>
+
+      <div class= "mdl-cell mdl-cell--3-col">
+        <%= button_to "Actual Income" %>
+  </div>
 </div>
 
-<div id="chart2">
-    <%= render_chart(@chart, 'chart2') %>
+
+
+
+<div class="mdl-grid">
+  <div class= "mdl-cell mdl-cell--3-col"id='chart1'>
   </div>
+      <%= render_chart(@chart1, 'chart1') %>
+
+
+  <div class= "mdl-cell mdl-cell--3-col" id='chart2'>
+  </div>
+      <%= render_chart(@chart2, 'chart2') %>
+
+
+  <div class= "mdl-cell mdl-cell--3-col" id='chart3'>
+  </div>
+      <%= render_chart(@chart3, 'chart3') %>
+
+
+  <div class= "mdl-cell mdl-cell--3-col" id='chart4'>
+  </div>
+      <%= render_chart(@chart4, 'chart4') %>
+
+</div>
 
 
      <div class="w3-progress-container">
       <div class="w3-progressbar" style="width: <%=@progressbarnumber[0] %>%; background-color: <%=@colorarray[0] %>"></div>
     </div>
+</br>
+     <div class="w3-progress-container">
+      <div class="w3-progressbar" style="width: <%=@progressbarnumber[1] %>%; background-color: <%=@colorarray[1] %>"></div>
+    </div>
+</br>
+     <div class="w3-progress-container">
+      <div class="w3-progressbar" style="width: <%=@progressbarnumber[2] %>%; background-color: <%=@colorarray[2] %>"></div>
+    </div>
+ </br>   
+
+     <div class="w3-progress-container">
+      <div class="w3-progressbar" style="width: <%=@progressbarnumber[3] %>%; background-color: <%=@colorarray[3] %>"></div>
+    </div>
+ </br>   
+
+
 
 <button class="transaction-button"> Transaction </button>
 <button class="comparison-button"> Comparison </button>

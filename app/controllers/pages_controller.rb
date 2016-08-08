@@ -24,54 +24,138 @@ class PagesController < ApplicationController
     end
 
   end
-
+#Sample data
+# [['Food', 200],['Entertainment', 30],['Mortgage', 30],['Student Loan', 20]]
 
   def dashboard
-    #Donut Pie Chart
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', 'Type' )
-    data_table.new_column('number', 'Expenses')
-    data_table.add_rows([
-      ['Food', 20],
-      ['Entertainment', 30],
-      ['Mortgage', 30],
-      ['Student Loan', 20]
-    ])
+
+      @user1 = []
+      @user2 = []
+      @user3 = []
+      @user4 = []
+
+    def generatedata(budgettype)
+
+
+      set_group_users.each_with_index do |user, index|
+        
+        user.bank_accounts.first.budgets.find_by(name: @parsed_month).budget_types.joins(:tag).where('tags.category': budgettype).each do |budget|
+
+          if index == 0 
+            @user1 << [budget.tag.description, budget.amount]
+        
+          elsif index == 1 
+
+
+            @user2 << [budget.tag.description, budget.amount]
+        
+          elsif index == 2 
+
+
+            @user3 << [budget.tag.description, budget.amount]
+
+          else
+
+            @user4 << [budget.tag.description, budget.amount]
+          end 
+        end  
+      end  
+    end 
+
+
+
+  def generateactualdata 
+    #this method will generate total amount sum of tag to all the users    
+  end 
+
+#to display default value as expense
+if params[:budgettype].nil?
+  theparams = "expense"
+else
+  theparams = params[:budgettype]
+end 
+
+generatedata(theparams)
+
+@progressbarnumber = [66,77,88,55]
+@colorarray = ["#88C057","#9777A8", "#ED7161", "#47A0DB"]
+width = 350
+height = 240
+    #Budget Expense Pie Chart1
+    data_table1 = GoogleVisualr::DataTable.new
+    data_table1.new_column('string', 'Tag' )
+    data_table1.new_column('number', 'Expenses')
+    data_table1.add_rows(@user1)
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
-    option = { width: 400, height: 240, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: ['#88C057','#9777A8', '#ED7161', '#47A0DB']}
-    @chart = GoogleVisualr::Interactive::PieChart.new(data_table, option)
+    option1 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
+    @chart1 = GoogleVisualr::Interactive::PieChart.new(data_table1, option1)
     formatter.columns(1) # Apply to 2nd Column
-    data_table.format(formatter)
-    @progressbarnumber = [66,77,88,55]
-    @colorarray = ["#88C057","#9777A8", "#ED7161", "#47A0DB"]
+    data_table1.format(formatter)
 
 
-    #Line Graph
-    data_table = GoogleVisualr::DataTable.new
-    data_table.new_column('string', 'Year')
-    data_table.new_column('number', 'Budget')
-    data_table.new_column('number', 'Actual')
-    data_table.add_rows(4)
-    data_table.set_cell(0, 0, '2004')
-    data_table.set_cell(0, 1, 1000)
-    data_table.set_cell(0, 2, 400)
-    data_table.set_cell(1, 0, '2005')
-    data_table.set_cell(1, 1, 1170)
-    data_table.set_cell(1, 2, 460)
-    data_table.set_cell(2, 0, '2006')
-    data_table.set_cell(2, 1, 860)
-    data_table.set_cell(2, 2, 580)
-    data_table.set_cell(3, 0, '2007')
-    data_table.set_cell(3, 1, 1030)
-    data_table.set_cell(3, 2, 540)
+    #Budget Expense Pie Chart2
+    data_table2 = GoogleVisualr::DataTable.new
+    data_table2.new_column('string', 'Tag' )
+    data_table2.new_column('number', 'Expenses')
+    data_table2.add_rows(@user2)
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
-    opts   = { :width => 400, :height => 240, :title => 'Savings Performance', :legend => 'bottom' }
+    option2 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
+    @chart2 = GoogleVisualr::Interactive::PieChart.new(data_table2, option2)
     formatter.columns(1) # Apply to 2nd Column
-    data_table.format(formatter)
-    @chart = GoogleVisualr::Interactive::LineChart.new(data_table, opts)
+    data_table2.format(formatter)
 
 
-    @transaction = Transaction.new
+
+
+    #Budget Expense Pie Chart3
+    data_table3 = GoogleVisualr::DataTable.new
+    data_table3.new_column('string', 'Tag' )
+    data_table3.new_column('number', 'Expenses')
+    data_table3.add_rows(@user3)
+    formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
+    option3 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
+    @chart3 = GoogleVisualr::Interactive::PieChart.new(data_table3, option3)
+    formatter.columns(1) # Apply to 2nd Column
+    data_table3.format(formatter)
+
+    #Budget Expense Pie Chart4
+    data_table4 = GoogleVisualr::DataTable.new
+    data_table4.new_column('string', 'Tag' )
+    data_table4.new_column('number', 'Expenses')
+    data_table4.add_rows(@user4)
+    formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
+    option4 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
+    @chart4 = GoogleVisualr::Interactive::PieChart.new(data_table4, option4)
+    formatter.columns(1) # Apply to 2nd Column
+    data_table4.format(formatter)
+
+
+    # #Line Graph
+    # data_table = GoogleVisualr::DataTable.new
+    # data_table.new_column('string', 'Year')
+    # data_table.new_column('number', 'Budget')
+    # data_table.new_column('number', 'Actual')
+    # data_table.add_rows(4)
+    # data_table.set_cell(0, 0, '2004')
+    # data_table.set_cell(0, 1, 1000)
+    # data_table.set_cell(0, 2, 400)
+    # data_table.set_cell(1, 0, '2005')
+    # data_table.set_cell(1, 1, 1170)
+    # data_table.set_cell(1, 2, 460)
+    # data_table.set_cell(2, 0, '2006')
+    # data_table.set_cell(2, 1, 860)
+    # data_table.set_cell(2, 2, 580)
+    # data_table.set_cell(3, 0, '2007')
+    # data_table.set_cell(3, 1, 1030)
+    # data_table.set_cell(3, 2, 540)
+    # formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
+    # opts   = { :width => 400, :height => 240, :title => 'Savings Performance', :legend => 'bottom' }
+    # formatter.columns(1) # Apply to 2nd Column
+    # data_table.format(formatter)
+    # @chart2 = GoogleVisualr::Interactive::LineChart.new(data_table, opts)
+
+
+  @transaction = Transaction.new
 
    set_group_users
 
@@ -123,10 +207,12 @@ class PagesController < ApplicationController
 
 
   def set_group_users
+
     if current_user.groups.empty?
       @group_users = [current_user]
     else
       @group_users = current_user.groups.first.users
+      @group_users = @group_users.sort_by{|user| user.allocations.find_by(group_id: current_user.groups.first.id)}
     end
   end
 
