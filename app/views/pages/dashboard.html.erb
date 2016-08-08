@@ -1,4 +1,36 @@
 
+<div class="mdl-grid dashboard-navigator">
+  <div class="mdl-cell mdl-cell--12-col">
+
+    <button class="dashboard-toggle-button"> <%=@view%> </button>
+    <div class="dashboard-toggle-dropdown">
+      <%= button_to "Overview", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Overview"}, class: "dashboard-selector-button" %>
+      <%= button_to "Income", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Income"}, class: "dashboard-selector-button" %>
+      <%= button_to "Expense", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Expense"}, class: "dashboard-selector-button" %>
+      <%= button_to "Goal", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Goal"}, class: "dashboard-selector-button" %>
+    </div>
+
+    <button class="month-toggle-button"> Month </button>
+    <div class="month-toggle-dropdown">
+      <%= button_to "January", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "1"}, class: "month-selector-button" %>
+      <%= button_to "February", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "2"}, class: "month-selector-button" %>
+      <%= button_to "March", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "3"}, class: "month-selector-button" %>
+      <%= button_to "April", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "4"}, class: "month-selector-button" %>
+      <%= button_to "May", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "5"}, class: "month-selector-button" %>
+      <%= button_to "June", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "6"}, class: "month-selector-button" %>
+      <%= button_to "July", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "7"}, class: "month-selector-button" %>
+      <%= button_to "August", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "8"}, class: "month-selector-button" %>
+      <%= button_to "September", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "9"}, class: "month-selector-button" %>
+      <%= button_to "October", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "10"}, class: "month-selector-button" %>
+      <%= button_to "November", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "11"}, class: "month-selector-button" %>
+      <%= button_to "December", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "12"}, class: "month-selector-button" %>
+    </div>
+
+  </div>
+</div>
+
+
+
 <div class= "mdl-grid">
 	<% @group_users.each_with_index do |user| %>
 	<%= button_to user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{user.id}", month: "#{@month}" } do %>
@@ -12,29 +44,10 @@
 	<%end%>
 </div>
 
-<%= button_to "<", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month - 1}"} %>
 <h3> <%= @budget.start_date %> | <%= @budget.end_date %> </h3>
-<%= button_to ">", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month + 1}"} %>
 
-<div id='chart'>
-  <%= render_chart(@chart, 'chart') %>
-</div>
-
-<div id="chart2">
-    <%= render_chart(@chart, 'chart2') %>
-  </div>
-
-
-     <div class="w3-progress-container">
-      <div class="w3-progressbar" style="width: <%=@progressbarnumber[0] %>%; background-color: <%=@colorarray[0] %>"></div>
-    </div>
-
-<button class="transaction-button"> Transaction </button>
-<button class="comparison-button"> Comparison </button>
-<button class="summary-button"> Summary </button>
-
-<%= render "transactions/show" %>
-
-<%= render "budgets/comparison" %>
-
-<%= render "budgets/summary" %>
+<% if @view == "Overview" %>
+  <%= render "pages/overview" %>
+<% elsif @view == "Income" %>
+  <%= render "pages/income" %>
+<% end %>

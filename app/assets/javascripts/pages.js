@@ -1,21 +1,11 @@
 $(document).on('turbolinks:load', function() {
 
-  $(".comparison-button").click(function () {
-    $(".comparison-box").show();
-    $(".transaction-box").hide();
-    $(".summary-box").hide();
+  $(".month-toggle-button").click(function () {
+    $(".month-toggle-dropdown").toggle();
   })
 
-  $(".transaction-button").click(function () {
-    $(".transaction-box").show();
-    $(".comparison-box").hide();
-    $(".summary-box").hide();
-  })
-
-  $(".summary-button").click(function () {
-    $(".summary-box").show();
-    $(".transaction-box").hide();
-    $(".comparison-box").hide();
+  $(".dashboard-toggle-button").click(function () {
+    $(".dashboard-toggle-dropdown").toggle();
   })
 
 });
