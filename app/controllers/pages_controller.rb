@@ -102,7 +102,7 @@ class PagesController < ApplicationController
       @group_users = [current_user]
     else
       @group_users = current_user.groups.first.users
-      @group_users = @group_users.sort_by{|user| user.allocations.find_by(group_id: current_user.groups.first.id)}
+      @group_users = @group_users.sort_by { |user| user.allocations.find_by(group_id: current_user.groups.first.id) }
     end
   end
 
@@ -336,11 +336,11 @@ class PagesController < ApplicationController
 
     @bank_accounts.each do |bank_account|
       @user_data_array = []
-      bank_account.budget.find_by(name: @parsed_month).budget_types.joins(:tag).where('tags.category': category).each do |budget_type|
+      bank_account.budgets.find_by(name: @parsed_month).budget_types.joins(:tag).where('tags.category': category).each do |budget_type|
         tag_description = budget_type.tag.description
         temp_arr = []
         temp_arr << tag_description
-        temp_arr << bank_account.total_transactions_sum_by_description_and_month(description: tag_description, month: @month)
+        temp_arr << bank_account.total_transactions_sum_by_description_and_month(description: tag_description, month: Date.parse(@parsed_month))
         @user_data_array << temp_arr
       end
       @all_user_data_array << @user_data_array
