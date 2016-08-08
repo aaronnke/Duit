@@ -1,0 +1,25 @@
+<div class="mdl-grid--no-spacing navbar">
+
+  <%= link_to root_path, class: "navbar-button" do %>
+      <span class="navbar-link"> DUIT <span>
+  <% end %>
+
+  <% if user_signed_in? %>
+    <%= link_to destroy_user_session_path, method: :delete, class: "navbar-button logout-button" do %>
+        <span class="navbar-link"> Log Out <span>
+    <% end %>
+    <%= link_to user_profile_path(current_user.id), class: "navbar-button user-profile-button" do %>
+        <span class="navbar-link"> Profile <span>
+    <% end %>
+    <%= link_to user_dashboard_path(current_user.id), class: "navbar-button user-dashboard-button" do %>
+        <span class="navbar-link"> Dashboard <span>
+    <% end %>
+  <% else %>
+    <%= link_to new_user_session_path, class: "navbar-button login-button" do %>
+        <span class="navbar-link"> Log In <span>
+    <% end %>
+    <%= link_to new_user_registration_path, class: "navbar-button signup-button" do %>
+        <span class="navbar-link"> Sign Up <span>
+    <% end %>
+  <% end %>
+</div>

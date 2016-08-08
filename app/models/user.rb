@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
          :confirmable, :lockable
 
   mount_uploader :avatar, AvatarUploader
-  
+
   has_many :allocations
   has_many :groups, :through => :allocations
   has_many :bank_accounts
@@ -20,4 +20,5 @@ class User < ActiveRecord::Base
 	    user.avatar = auth.info.avatar # assuming the user model has an image
 	  end
 	end
+  
 end
