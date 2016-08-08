@@ -96,7 +96,17 @@ class PagesController < ApplicationController
 
   def set_user
     if params[:user_id].present?
-      @user = User.find(params[:user_id])
+      if current_user.groups.empty?
+        @user = current_user
+        flash[:notice] = "You don't have that team member." if params[:user_id].to_i != current_user.id
+      else
+        if current_user.groups.first.users.where(id: params[:user_id].to_i).present?
+          @user = User.find(params[:user_id])
+        else
+          @user = current_user
+          flash[:notice] = "You don't have that team member."
+        end
+      end
     else
       @user = current_user
     end
