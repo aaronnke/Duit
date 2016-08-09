@@ -1,4 +1,4 @@
-<% if current_user.bank_accounts.exists? %>
+  <% if current_user.bank_accounts.exists? %>
 	Name:
 	<%= current_user.name %>
 	</br>
@@ -14,3 +14,4 @@
 	<%=render 'bank_accounts/form'%>
 
 <%end%>
+</div>
