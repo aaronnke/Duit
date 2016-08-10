@@ -44,11 +44,18 @@ class PagesController < ApplicationController
       set_overview_percentages
 
 
-    elsif @view == "Income"
-      set_actual_pie_charts(category: "income")
 
-    elsif @view == "ActualExpense"
-      set_actual_pie_charts(category: "expense")
+    elsif @view == "Income"
+     if params[:budgettype] == 'actualincome'
+
+      set_actual_pie_charts(category: "income")
+    else
+      
+      set_income_everything
+    end  
+      generate_graph
+    # elsif @view == "ActualExpense"
+    #   set_actual_pie_charts(category: "expense")
   
 
     elsif @view == "Expense"
@@ -58,7 +65,10 @@ class PagesController < ApplicationController
       else
         set_expense_everything
       end
-      generate_graph
+        generate_graph
+
+
+
     elsif @view == "Balance"
       set_actual_pie_charts(category: "balance")
     end
@@ -72,11 +82,7 @@ class PagesController < ApplicationController
   private
   def checkifnil(array)
     array ||= []
-    # if array.nil?
-    #   return []
-    # else
-    #   return array  
-    # end  
+
   end  
 
 
@@ -202,6 +208,8 @@ class PagesController < ApplicationController
     @overview_expenses_budget = []
     @overview_balances_budget = []
 
+    @overview_incomes_user_divide_total
+
     @group_users.each_with_index do |user, index|
       budgets << user.bank_accounts.first.budgets.find_by(name: @parsed_month)
       @overview_incomes_budget << budgets[index].get_incomes.sum(:amount)
@@ -239,38 +247,19 @@ class PagesController < ApplicationController
       end
 
     end
-
   end
 
-  def generatedata(budgettype)
-    @all_user_data_array = []
+  def set_income_everything
+    generatedata(params[:budgettype] || 'income')
+  end
 
-    @bank_accounts = []
-
-    @group_users.each do |user|
-      @bank_accounts << user.bank_accounts.first
-    end
-
-    @bank_accounts.each do |bank_account|
-      @user_data_array = []
-      bank_account.budgets.find_by(name: @parsed_month).budget_types.joins(:tag).where('tags.category': budgettype).each do |budget_type|
-        tag_description = budget_type.tag.description
-        temp_arr = []
-        temp_arr << tag_description
-        temp_arr << budget_type.amount
-        @user_data_array << temp_arr
-
-      end
-
-      @all_user_data_array << @user_data_array
-    end
-  end #end generatedata(budgetype)
 
   def set_expense_everything
     generatedata(params[:budgettype] || 'expense')
   end
 
-  def generate_graph
+  def generate_graph(user_data_array = @all_user_data_array)
+    
   @progressbarnumber = [66,77,88,55]
   @colorarray = ["#88C057","#9777A8", "#ED7161", "#47A0DB"]
   width = 350
@@ -280,7 +269,7 @@ class PagesController < ApplicationController
     data_table1 = GoogleVisualr::DataTable.new
     data_table1.new_column('string', 'Tag' )
     data_table1.new_column('number', 'Expenses')
-    data_table1.add_rows(checkifnil(@all_user_data_array[0]))
+    data_table1.add_rows(checkifnil(user_data_array[0]))
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
     option1 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
     @chart1 = GoogleVisualr::Interactive::PieChart.new(data_table1, option1)
@@ -292,7 +281,7 @@ class PagesController < ApplicationController
     data_table2 = GoogleVisualr::DataTable.new
     data_table2.new_column('string', 'Tag' )
     data_table2.new_column('number', 'Expenses')
-    data_table2.add_rows(@all_user_data_array[1])
+    data_table2.add_rows(user_data_array[1])
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
     option2 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
     @chart2 = GoogleVisualr::Interactive::PieChart.new(data_table2, option2)
@@ -304,7 +293,7 @@ class PagesController < ApplicationController
     data_table3 = GoogleVisualr::DataTable.new
     data_table3.new_column('string', 'Tag' )
     data_table3.new_column('number', 'Expenses')
-    data_table3.add_rows(checkifnil(@all_user_data_array[2]))
+    data_table3.add_rows(checkifnil(user_data_array[2]))
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
     option3 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
     @chart3 = GoogleVisualr::Interactive::PieChart.new(data_table3, option3)
@@ -315,7 +304,7 @@ class PagesController < ApplicationController
     data_table4 = GoogleVisualr::DataTable.new
     data_table4.new_column('string', 'Tag' )
     data_table4.new_column('number', 'Expenses')
-    data_table4.add_rows(checkifnil(@all_user_data_array[3]))
+    data_table4.add_rows(checkifnil(user_data_array[3]))
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
     option4 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
     @chart4 = GoogleVisualr::Interactive::PieChart.new(data_table4, option4)
@@ -325,11 +314,9 @@ class PagesController < ApplicationController
   end
 
 
-
-
-
   def set_colors
-    @colors = ["#ef9a9a", "#ba68c8", "#f06292", "#c5e1a5", "#ffe082"]
+    @colors = ["#88C057","#9777A8", "#ED7161", "#47A0DB"]
+    # ["#ef9a9a", "#ba68c8", "#f06292", "#c5e1a5", "#ffe082"]
   end
 
 
@@ -355,5 +342,32 @@ class PagesController < ApplicationController
       @all_user_data_array << @user_data_array
     end
   end
+
+  def generatedata(budgettype) #budgeted
+    @all_user_data_array = []
+
+    @bank_accounts = []
+
+    @group_users.each do |user|
+      @bank_accounts << user.bank_accounts.first
+    end
+
+    @bank_accounts.each do |bank_account|
+      @user_data_array = []
+      bank_account.budgets.find_by(name: @parsed_month).budget_types.joins(:tag).where('tags.category': budgettype).each do |budget_type|
+        tag_description = budget_type.tag.description
+        temp_arr = []
+        temp_arr << tag_description
+        temp_arr << budget_type.amount
+        @user_data_array << temp_arr
+
+      end
+
+      @all_user_data_array << @user_data_array
+    end
+  end #end generatedata(budgetype)
+
+
+
 
 end

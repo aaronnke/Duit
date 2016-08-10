@@ -1,19 +1,55 @@
 <div class="mdl-grid overview">
 
+
+
   <div class="mdl-cell mdl-cell--6-col">
-    <h3> Incomes </h3>
+    <h3>All Users Income <%= @parsed_month %></h3>
+    <%@arrayeaners = []%>
+<!-- First loop for logic-->    
     <% @group_users.each_with_index do |user, index| %>
-      <p> <%= user.name %> </p>
-      <p> <%= @overview_incomes_transaction[index] %> / <%= @overview_incomes_budget[index] %> </p>
-      <div class="progressbar-container">
-        <div class="progressbar-filler" style='width: <%= @overview_incomes_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
-        </div>
-      </div>
+      <% @arrayeaners << @overview_incomes_budget[index]%>
     <% end %>
+<!-- 2nd loop for display-->    
+  <% @group_users.each_with_index do |user, index|%>
+    </br>
+    <p><%= user.name %> </p>
+    <% percentage = ((@overview_incomes_budget[index].to_f / @arrayeaners.inject(0){|sum,x| sum + x }.to_f)*100) %>
+    <%= @overview_incomes_budget[index] %> of total <%= @arrayeaners.inject(0){|sum,x| sum + x } %>
+    <div class="progressbar-container">
+      <div class="progressbar-filler" style='width: <%= percentage %>%; background-color: <%= @colors[index] %>;'>
+      </div>
+    </div>
+
+  <% end %>
+
+
   </div>
 
   <div class="mdl-cell mdl-cell--6-col">
-    <h3> Expenses </h3>
+    <h3>All Users Expenses <%= @parsed_month %></h3>
+    <%@arrayeaners2 = []%>
+<!-- First loop for logic-->    
+    <% @group_users.each_with_index do |user, index| %>
+      <% @arrayeaners2 << @overview_expenses_budget[index]%>
+    <% end %>
+<!-- 2nd loop for display-->    
+  <% @group_users.each_with_index do |user, index|%>
+    </br>
+    <p><%= user.name %> </p>
+    <% percentage = ((@overview_expenses_budget[index].to_f / @arrayeaners2.inject(0){|sum,x| sum + x }.to_f)*100) %>
+    <%= @overview_expenses_budget[index] %> of total <%= @arrayeaners2.inject(0){|sum,x| sum + x } %>
+    <div class="progressbar-container">
+      <div class="progressbar-filler" style='width: <%= percentage %>%; background-color: <%= @colors[index] %>;'>
+      </div>
+    </div>
+
+  <% end %>
+
+
+  </div>
+
+  <div class="mdl-cell mdl-cell--6-col">
+    <h3> Budget <%= @parsed_month %></h3>
     <% @group_users.each_with_index do |user, index| %>
     <p> <%= user.name %> </p>
     <p> <%= @overview_expenses_transaction[index] %> / <%= @overview_expenses_budget[index] %> </p>
@@ -26,16 +62,4 @@
 
 </div>
 
-<div class="mdl-grid overview">
-  <div class="mdl-cell mdl-cell--6-col">
-    <h3> Balances </h3>
-    <% @group_users.each_with_index do |user, index| %>
-    <p> <%= user.name %> </p>
-    <p> <%= @overview_balances_transaction[index] %> / <%= @overview_balances_budget[index] %> </p>
-    <div class="progressbar-container">
-      <div class="progressbar-filler" style='width: <%= @overview_balances_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
-      </div>
-    </div>
-    <% end %>
-  </div>
-</div>
+  

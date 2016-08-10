@@ -1,25 +1,24 @@
-<div class = "mdl-grid" >
-  <div class= "mdl-cell mdl-cell--3-col">
-    <%= button_to "Planned Expenses", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "expense", view: "Expense"} %>
-  </div>
 
-    <div class= "mdl-cell mdl-cell--3-col">
-      <%= button_to "Actual Expenses", user_dashboard_path(current_user.id),method: :get, params: { budgettype: "actualexpense", view: "Expense" }%>
-  </div>
 
-    <div class= "mdl-cell mdl-cell--3-col">
-      <%= button_to "Planned Income", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "income"} %>
-  </div>
 
-      <div class= "mdl-cell mdl-cell--3-col">
-        <%= button_to "Actual Income" %>
-  </div>
+
+
+
+<div class= "mdl-grid">
+  <% @group_users.each_with_index do |user| %>
+    <%= button_to user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{user.id}", month: "#{@month}", view: "#{@view}" } do %>
+      <h3> <%= user.name %> </h3>
+      <div class="mdl-cell mdl-cell--3-col">
+        <% if user.avatar.present? %>
+          <%= image_tag user.avatar.thumb.url %>
+        <% end %>
+      </div>
+    <% end %>
+  <%end%>
 </div>
 
-
-
-
 <div class="mdl-grid">
+  
   <div class= "mdl-cell mdl-cell--3-col"id='chart1'>
   </div>
       <%= render_chart(@chart1, 'chart1') %>
@@ -30,16 +29,35 @@
       <%= render_chart(@chart2, 'chart2') %>
 
 
-  <div class= "mdl-cell mdl-cell--3-col" id='chart3'>
+<!--   <div class= "mdl-cell mdl-cell--3-col" id='chart3'>
   </div>
       <%= render_chart(@chart3, 'chart3') %>
 
 
   <div class= "mdl-cell mdl-cell--3-col" id='chart4'>
   </div>
-      <%= render_chart(@chart4, 'chart4') %>
+      <%= render_chart(@chart4, 'chart4') %> -->
 
 </div>
+
+
+<div class = "mdl-grid" >
+
+
+  <div class= "mdl-cell mdl-cell--3-col">
+    <%= button_to "Planned Expenses", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "expense", view: "Expense"} %>
+  </div>
+
+    <div class= "mdl-cell mdl-cell--3-col">
+      <%= button_to "Actual Expenses", user_dashboard_path(current_user.id),method: :get, params: { budgettype: "actualexpense", view: "Expense" }%>
+  </div>
+
+
+</div>
+
+
+
+
 
 
 <!--      <div class="w3-progress-container">
@@ -62,9 +80,7 @@
 
 <button class="transaction-button"> Transaction </button>
 <button class="comparison-button"> Comparison </button>
-
 <%= render "transactions/show" %>
 
-<%= render "budgets/comparison" %>
-
+<!-- render "budgets/comparison" -->
  <!-- render "budgets/piecharts" -->
