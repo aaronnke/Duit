@@ -1,18 +1,10 @@
 <div class = "mdl-grid" >
   <div class= "mdl-cell mdl-cell--3-col">
-    <%= button_to "Planned Expenses", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "expense"} %>
+    <%= button_to "Planned Income", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "income", view: "Income"} %>
   </div>
 
     <div class= "mdl-cell mdl-cell--3-col">
-      <%= button_to "Actual Expenses" %>
-  </div>
-
-    <div class= "mdl-cell mdl-cell--3-col">
-      <%= button_to "Planned Income", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "income"} %>
-  </div>
-
-      <div class= "mdl-cell mdl-cell--3-col">
-        <%= button_to "Actual Income" %>
+      <%= button_to "Actual Income", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "actualincome", view: "Income"} %>
   </div>
 </div>
 

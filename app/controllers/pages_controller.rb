@@ -43,18 +43,35 @@ class PagesController < ApplicationController
       set_overview_budgets
       set_overview_percentages
 
+
+
     elsif @view == "Income"
+     if params[:budgettype] == 'actualincome'
+
       set_actual_pie_charts(category: "income")
+    else
+      
+      set_income_everything
+    end  
+      generate_graph
+    # elsif @view == "ActualExpense"
+    #   set_actual_pie_charts(category: "expense")
+  
 
     elsif @view == "Expense"
-      set_expense_everything   # THIS IS YOUR BUDGETED PIE CHART MAKING METHOD WHICH I REFACTORED INTO HERE.
-      set_actual_pie_charts(category: "expense")
+      # set_expense_everything   # THIS IS YOUR BUDGETED PIE CHART MAKING METHOD WHICH I REFACTORED INTO HERE.
+      if params[:budgettype] == 'actualexpense'
+        set_actual_pie_charts(category: "expense")
+      else
+        set_expense_everything
+      end
+        generate_graph
+
+
 
     elsif @view == "Balance"
       set_actual_pie_charts(category: "balance")
-
     end
-
   end
 
 
@@ -63,6 +80,12 @@ class PagesController < ApplicationController
 # ================================================================================ #
 
   private
+  def checkifnil(array)
+    array ||= []
+
+  end  
+
+
 
   def validate_dashboard_access
     if current_user.bank_accounts.empty?
@@ -185,6 +208,8 @@ class PagesController < ApplicationController
     @overview_expenses_budget = []
     @overview_balances_budget = []
 
+    @overview_incomes_user_divide_total
+
     @group_users.each_with_index do |user, index|
       budgets << user.bank_accounts.first.budgets.find_by(name: @parsed_month)
       @overview_incomes_budget << budgets[index].get_incomes.sum(:amount)
@@ -222,68 +247,29 @@ class PagesController < ApplicationController
       end
 
     end
+  end
 
+  def set_income_everything
+    generatedata(params[:budgettype] || 'income')
   end
 
 
   def set_expense_everything
-    @user1 = []
-    @user2 = []
-    @user3 = []
-    @user4 = []
-
-    def generatedata(budgettype)
-
-
-      set_group_users.each_with_index do |user, index|
-
-        user.bank_accounts.first.budgets.find_by(name: @parsed_month).budget_types.joins(:tag).where('tags.category': budgettype).each do |budget|
-
-          if index == 0
-            @user1 << [budget.tag.description, budget.amount]
-
-          elsif index == 1
-
-
-            @user2 << [budget.tag.description, budget.amount]
-
-          elsif index == 2
-
-
-            @user3 << [budget.tag.description, budget.amount]
-
-          else
-
-            @user4 << [budget.tag.description, budget.amount]
-          end
-        end
-      end
-    end
-
-
-
-  def generateactualdata
-    #this method will generate total amount sum of tag to all the users
+    generatedata(params[:budgettype] || 'expense')
   end
 
-  #to display default value as expense
-  if params[:budgettype].nil?
-  theparams = "expense"
-  else
-  theparams = params[:budgettype]
-  end
-
-  generatedata(theparams)
-
+  def generate_graph(user_data_array = @all_user_data_array)
+    
   @progressbarnumber = [66,77,88,55]
   @colorarray = ["#88C057","#9777A8", "#ED7161", "#47A0DB"]
   width = 350
   height = 240
+
     #Budget Expense Pie Chart1
     data_table1 = GoogleVisualr::DataTable.new
     data_table1.new_column('string', 'Tag' )
     data_table1.new_column('number', 'Expenses')
-    data_table1.add_rows(@user1)
+    data_table1.add_rows(checkifnil(user_data_array[0]))
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
     option1 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
     @chart1 = GoogleVisualr::Interactive::PieChart.new(data_table1, option1)
@@ -295,7 +281,7 @@ class PagesController < ApplicationController
     data_table2 = GoogleVisualr::DataTable.new
     data_table2.new_column('string', 'Tag' )
     data_table2.new_column('number', 'Expenses')
-    data_table2.add_rows(@user2)
+    data_table2.add_rows(user_data_array[1])
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
     option2 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
     @chart2 = GoogleVisualr::Interactive::PieChart.new(data_table2, option2)
@@ -307,7 +293,7 @@ class PagesController < ApplicationController
     data_table3 = GoogleVisualr::DataTable.new
     data_table3.new_column('string', 'Tag' )
     data_table3.new_column('number', 'Expenses')
-    data_table3.add_rows(@user3)
+    data_table3.add_rows(checkifnil(user_data_array[2]))
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
     option3 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
     @chart3 = GoogleVisualr::Interactive::PieChart.new(data_table3, option3)
@@ -318,17 +304,19 @@ class PagesController < ApplicationController
     data_table4 = GoogleVisualr::DataTable.new
     data_table4.new_column('string', 'Tag' )
     data_table4.new_column('number', 'Expenses')
-    data_table4.add_rows(@user4)
+    data_table4.add_rows(checkifnil(user_data_array[3]))
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
     option4 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
     @chart4 = GoogleVisualr::Interactive::PieChart.new(data_table4, option4)
     formatter.columns(1) # Apply to 2nd Column
     data_table4.format(formatter)
+
   end
 
 
   def set_colors
-    @colors = ["#ef9a9a", "#ba68c8", "#f06292", "#c5e1a5", "#ffe082"]
+    @colors = ["#88C057","#9777A8", "#ED7161", "#47A0DB"]
+    # ["#ef9a9a", "#ba68c8", "#f06292", "#c5e1a5", "#ffe082"]
   end
 
 
@@ -354,5 +342,32 @@ class PagesController < ApplicationController
       @all_user_data_array << @user_data_array
     end
   end
+
+  def generatedata(budgettype) #budgeted
+    @all_user_data_array = []
+
+    @bank_accounts = []
+
+    @group_users.each do |user|
+      @bank_accounts << user.bank_accounts.first
+    end
+
+    @bank_accounts.each do |bank_account|
+      @user_data_array = []
+      bank_account.budgets.find_by(name: @parsed_month).budget_types.joins(:tag).where('tags.category': budgettype).each do |budget_type|
+        tag_description = budget_type.tag.description
+        temp_arr = []
+        temp_arr << tag_description
+        temp_arr << budget_type.amount
+        @user_data_array << temp_arr
+
+      end
+
+      @all_user_data_array << @user_data_array
+    end
+  end #end generatedata(budgetype)
+
+
+
 
 end

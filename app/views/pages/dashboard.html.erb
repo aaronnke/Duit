@@ -6,6 +6,7 @@
     <div class="dashboard-toggle-dropdown">
       <%= button_to "Overview", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Overview"}, class: "dashboard-selector-button" %>
       <%= button_to "Income", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Income"}, class: "dashboard-selector-button" %>
+      
       <%= button_to "Expense", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Expense"}, class: "dashboard-selector-button" %>
       <%= button_to "Goal", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Goal"}, class: "dashboard-selector-button" %>
     </div>
@@ -31,7 +32,7 @@
 
 
 
-<div class= "mdl-grid">
+<!-- <div class= "mdl-grid">
 	<% @group_users.each_with_index do |user| %>
     <%= button_to user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{user.id}", month: "#{@month}", view: "#{@view}" } do %>
       <h3> <%= user.name %> </h3>
@@ -43,7 +44,7 @@
     <% end %>
 	<%end%>
 </div>
-
+ -->
 
 <h3> <%= @budget.start_date %> | <%= @budget.end_date %> </h3>
 
@@ -52,6 +53,7 @@
 <% elsif @view == "Income" %>
   <%= render "pages/income" %>
 <% elsif @view == "Expense" %>
+
   <%= render "pages/expense" %>
 <% elsif @view == "Balance" %>
   <%= render "pages/balance" %>
