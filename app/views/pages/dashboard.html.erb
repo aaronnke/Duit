@@ -31,22 +31,10 @@
 </div>
 
 
-
-<!-- <div class= "mdl-grid">
-	<% @group_users.each_with_index do |user| %>
-    <%= button_to user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{user.id}", month: "#{@month}", view: "#{@view}" } do %>
-      <h3> <%= user.name %> </h3>
-      <div class="mdl-cell mdl-cell--3-col">
-  	    <% if user.avatar.present? %>
-          <%= image_tag user.avatar.thumb.url %>
-        <% end %>
-      </div>
-    <% end %>
-	<%end%>
-</div>
- -->
-
+<div style="text-align:center">
+<h1><%= @parsed_month %><h1>
 <h3> <%= @budget.start_date %> | <%= @budget.end_date %> </h3>
+</div>
 
 <% if @view == "Overview" %>
   <%= render "pages/overview" %>
