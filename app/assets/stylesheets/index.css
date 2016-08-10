@@ -1,4 +1,4 @@
-.background-img {
+#background-img {
 	background: url("bg.jpg") no-repeat center center fixed;
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
@@ -7,7 +7,7 @@
     width: 100%;            
     height: 820px;       
     margin-left: auto;      
-    margin-right: auto;       
+    margin-right: auto;
 }
 
 .header-title {
@@ -15,4 +15,14 @@
 	font-size: 40px;
 	text-align: center;
 	padding: 100px;
+}
+
+.container {
+	width: 500px;
+	height: 200px;
+
+}
+
+#title-box{
+	margin-top: 100px;
 }

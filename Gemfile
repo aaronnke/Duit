@@ -44,7 +44,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 
 # ====================== WHAT IS THIS GEM FOR? =========================
-#gem 'bootstrap-sass'
+gem 'bootstrap-sass'
 # ====================== WHAT IS THIS GEM FOR? =========================
 
 

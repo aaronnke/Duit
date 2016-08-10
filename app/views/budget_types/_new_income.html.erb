@@ -1,5 +1,8 @@
 <%= form_for :new_income, url: budget_create_new_income_path(@budget[index].id), method: :post  do |f| %>
-  <%= f.text_field :tag %>
-  <%= f.number_field :amount %>
-  <%= f.submit "Add" %>
+  
+  <%= f.label :tag, "Description" %><br>
+  <%= f.text_field :tag %><br>
+  <%= f.label :amount, "Amount" %><br>
+  <%= f.number_field :amount %><br>
+  <%= f.submit "Add" %></br>
 <% end %>

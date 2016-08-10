@@ -1,7 +1,5 @@
-
 <div class="mdl-grid dashboard-navigator">
   <div class="mdl-cell mdl-cell--12-col">
-
     <button class="dashboard-toggle-button"> <%=@view%> </button>
     <div class="dashboard-toggle-dropdown">
       <%= button_to "Overview", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Overview"}, class: "dashboard-selector-button" %>
@@ -45,7 +43,7 @@
 </div>
 
 
-<h3> <%= @budget.start_date %> | <%= @budget.end_date %> </h3>
+<h3> <%= @budget.start_date %> -- <%= @budget.end_date %> </h3>
 
 <% if @view == "Overview" %>
   <%= render "pages/overview" %>

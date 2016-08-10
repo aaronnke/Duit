@@ -2,7 +2,7 @@
 
   <h3> Total Income: <%= @total_income_transaction %>/<%= @total_budget_income %> </h3>
   <% @budget_incomes.each do |income| %>
-    <h5> <%= income.tag.description %> </h5>
+    <h5> <%= income.tag.description %> </h5></div>
     <p> <%= @bank_account.get_tag_transactions_sum(income.tag.description) %> / <%= income.amount %> </p>
   <% end %>
 

@@ -1,11 +1,7 @@
-<div class="column">
-	<div class="container">
-	<% if current_user.groups.empty? %>
-	<p> You don't have a group yet. Create/join one! </p>
-	<%= render "groups/new" %>
+<% if current_user.groups.empty? %>
+<p> You don't have a group yet. Create/join one! </p>
+<%= render "groups/new" %>
 
-	<% else %>
-	<%= render "groups/show" %>
-	<% end %>
-	</div>
-</div>
+<% else %>
+<%= render "groups/show" %>
+<% end %>

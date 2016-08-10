@@ -1,3 +1,5 @@
+<div class="mdl-cell mdl-cell--4-col">
+
 <h1>Group: <%= @group.group_name %></h1> 
 
 <% if @group.master_id == current_user.id %>
@@ -7,3 +9,5 @@
 <% else %>
 	<%= link_to "Leave Group", leave_group_path, controller: "groups#leave", :data => {:confirm => "Are you sure?"}, method: :post %>
 <% end %>
+
+</div>
