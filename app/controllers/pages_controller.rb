@@ -72,6 +72,7 @@ class PagesController < ApplicationController
     elsif @view == "Balance"
       set_actual_pie_charts(category: "balance")
     end
+
   end
 
 
@@ -263,7 +264,7 @@ class PagesController < ApplicationController
     
   @progressbarnumber = [66,77,88,55]
   @colorarray = ["#88C057","#9777A8", "#ED7161", "#47A0DB"]
-  width = 350
+  width = 320
   height = 240
 
     #Budget Expense Pie Chart1
@@ -282,7 +283,7 @@ class PagesController < ApplicationController
     data_table2 = GoogleVisualr::DataTable.new
     data_table2.new_column('string', 'Tag' )
     data_table2.new_column('number', 'Expenses')
-    data_table2.add_rows(user_data_array[1])
+    data_table2.add_rows(checkifnil(user_data_array[1]))
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
     option2 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
     @chart2 = GoogleVisualr::Interactive::PieChart.new(data_table2, option2)

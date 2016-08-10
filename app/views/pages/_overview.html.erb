@@ -1,8 +1,11 @@
-<div class="mdl-grid overview">
+<div class="container-fluid">
+<div class="row">
 
-
-  <div class="mdl-cell mdl-cell--6-col" style="border-style: solid">
-    <h3>Group Contributions: Income</h3>
+  <div class="col-md-6">
+    <div class="panel panel-default overviewbox" >
+      <div class="panel-body overviewboxbody">
+            <h3>Group Contributions: Income</h3>
+            <div class ="content-only">
     <%@arrayeaners = []%>
 <!-- First loop for logic-->    
     <% @group_users.each_with_index do |user, index| %>
@@ -11,20 +14,29 @@
 <!-- 2nd loop for display-->    
   <% @group_users.each_with_index do |user, index|%>
     </br>
-    <p><%= user.name %> </p>
+
     <% percentage = ((@overview_incomes_budget[index].to_f / @arrayeaners.inject(0){|sum,x| sum + x }.to_f)*100) %>
-    <%= @overview_incomes_budget[index] %> of total <%= @arrayeaners.inject(0){|sum,x| sum + x } %>
-    <div class="progressbar-container">
-      <div class="progressbar-filler" style='width: <%= percentage %>%; background-color: <%= @colors[index] %>;'>
+    <div>
+    <p class = "username pull-left"><%= user.name %> </p>
+    <p class = "pull-right"><%= number_to_currency(@overview_incomes_budget[index], unit: "MYR ") %> of total <%= number_to_currency(@arrayeaners.inject(0){|sum,x| sum + x }, unit: "MYR ") %></p>
+  </div>
+    <div class="progress">
+      <div class="progress-bar" style='width: <%= percentage %>%; background-color: <%= @colors[index] %>;'>
       </div>
     </div>
 
   <% end %>
 
+      </div>
+    </div>
+  </div>
 
   </div>
 
-  <div class="mdl-cell mdl-cell--6-col" style="border-style: solid">
+  <div class="col-md-6">
+    <div class="panel panel-default overviewbox">
+      <div class="panel-body">
+        <div class ="content-only">
     <h3>Group Contributions: Expenses</h3>
     <%@arrayeaners2 = []%>
 <!-- First loop for logic-->    
@@ -34,11 +46,11 @@
 <!-- 2nd loop for display-->    
   <% @group_users.each_with_index do |user, index|%>
     </br>
-    <p><%= user.name %> </p>
+    <p class = "username pull-left"><%= user.name %> </p>
     <% percentage = ((@overview_expenses_budget[index].to_f / @arrayeaners2.inject(0){|sum,x| sum + x }.to_f)*100) %>
-    <%= @overview_expenses_budget[index] %> of total <%= @arrayeaners2.inject(0){|sum,x| sum + x } %>
-    <div class="progressbar-container">
-      <div class="progressbar-filler" style='width: <%= percentage %>%; background-color: <%= @colors[index] %>;'>
+    <p class = "pull-right"><%= number_to_currency(@overview_expenses_budget[index], unit: "MYR ") %> of total <%= number_to_currency(@arrayeaners2.inject(0){|sum,x| sum + x }, unit: "MYR ") %></p>
+    <div class="progress">
+      <div class="progress-bar" style='width: <%= percentage %>%; background-color: <%= @colors[index] %>;'>
       </div>
     </div>
 
@@ -46,30 +58,50 @@
 
 
   </div>
+      </div>
+    </div>
+    </div>
 
-  <div class="mdl-cell mdl-cell--6-col" style="border-style: solid">
+
+
+
+  <div class="col-md-6">
+    <div class="panel panel-default overviewbox">
+      <div class="panel-body">
+        <div class ="content-only">
+
     <h3> Income Tracker </h3>
     <% @group_users.each_with_index do |user, index| %>
-    <p> <%= user.name %> </p>
-    <p> <%= @overview_incomes_transaction[index] %> / <%= @overview_incomes_budget[index] %> </p>
-    <div class="progressbar-container">
-      <div class="progressbar-filler" style='width: <%= @overview_incomes_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
+    <p class = "username pull-left"><%= user.name %> </p>
+    <p class = "pull-right"> <%= number_to_currency(@overview_incomes_transaction[index], unit: "MYR ") %> Earned / <%= number_to_currency(@overview_incomes_budget[index], unit: "MYR ") %> Planned</p>
+    <div class="progress">
+      <div class="progress-bar" style='width: <%= @overview_incomes_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
       </div>
     </div>
     <% end %>
   </div>
+  </div>
+      </div>
+    </div>
 
+<div class="col-md-6">
+    <div class="panel panel-default overviewbox">
+      <div class="panel-body">  
+                <div class ="content-only">
 
-<div class="mdl-cell mdl-cell--6-col" style="border-style: solid">
     <h3> Expense Tracker </h3>
     <% @group_users.each_with_index do |user, index| %>
-    <p> <%= user.name %> </p>
-    <p> <%= @overview_expenses_transaction[index] %> / <%= @overview_expenses_budget[index] %> </p>
-    <div class="progressbar-container">
-      <div class="progressbar-filler" style='width: <%= @overview_expenses_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
+    <p class = "username pull-left"><%= user.name %> </p>
+    <p class = "pull-right"> <%= number_to_currency(@overview_expenses_transaction[index], unit: "MYR ") %> Spent / <%= number_to_currency(@overview_expenses_budget[index], unit: "MYR ") %>  Budget</p>
+    <div class="progress">
+      <div class="progress-bar" style='width: <%= @overview_expenses_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
       </div>
     </div>
     <% end %>
 </div>
+ </div>
+      </div>
+</div>
 
-  
+ </div>     
+  </div>

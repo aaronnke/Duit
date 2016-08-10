@@ -1,40 +1,46 @@
+<div class="container-fluid">
+<ul class="nav nav-pills pull-left">
+  <li class="dropdown">
+    <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#">
+      <%= params[:view]%> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li><%= link_to "Overview", user_dashboard_path(current_user.id, user_id: "#{@user.id}", month: "#{@month}", view: "Overview"), class: "dashboard-selector-button" %></li>
+      <li><%= link_to "Income", user_dashboard_path(current_user.id, user_id: "#{@user.id}", month: "#{@month}", view: "Income"), class: "dashboard-selector-button" %></li>
 
-<div class="mdl-grid dashboard-navigator">
-  <div class="mdl-cell mdl-cell--12-col">
+      <li><%= link_to "Expense", user_dashboard_path(current_user.id, user_id: "#{@user.id}", month: "#{@month}", view: "Expense"), class: "dashboard-selector-button" %></li>
 
-    <button class="dashboard-toggle-button"> <%=@view%> </button>
-    <div class="dashboard-toggle-dropdown">
-      <%= button_to "Overview", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Overview"}, class: "dashboard-selector-button" %>
-      <%= button_to "Income", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Income"}, class: "dashboard-selector-button" %>
+      <li><%= link_to "Goal", user_dashboard_path(current_user.id, user_id: "#{@user.id}", month: "#{@month}", view: "Expense"), class: "dashboard-selector-button" %></li>
+    </ul>
+  </li>  <li class="dropdown">
+    <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#">
+      <%= @parsed_month %> <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+
       
-      <%= button_to "Expense", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Expense"}, class: "dashboard-selector-button" %>
-      <%= button_to "Goal", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "#{@month}", view: "Goal"}, class: "dashboard-selector-button" %>
-    </div>
+      <li><%= link_to "January", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "1", view: "#{@view}"), class: "month-selector-button" %></li>
+      <li><%= link_to "February", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "2", view: "#{@view}"), class: "month-selector-button" %></li>
+      <li><%= link_to "March", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "3", view: "#{@view}"), class: "month-selector-button" %></li>
+      <li><%= link_to "April", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "4", view: "#{@view}"), class: "month-selector-button" %></li>      
+      <li><%= link_to "May", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "5", view: "#{@view}"), class: "month-selector-button" %></li>
+      <li><%= link_to "June", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "6", view: "#{@view}"), class: "month-selector-button" %></li>
+      <li><%= link_to "July", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "7", view: "#{@view}"), class: "month-selector-button" %></li>
+      <li><%= link_to "August", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "8", view: "#{@view}"), class: "month-selector-button" %></li> 
+      <li><%= link_to "September", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "9", view: "#{@view}"), class: "month-selector-button" %></li>
+      <li><%= link_to "October", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "10", view: "#{@view}"), class: "month-selector-button" %></li>
+      <li><%= link_to "November", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "11", view: "#{@view}"), class: "month-selector-button" %></li>
+      <li><%= link_to "December", user_dashboard_path(current_user.id,user_id: "#{@user.id}", month: "12", view: "#{@view}"), class: "month-selector-button" %></li>         
+    </ul>
+  </li>
+</ul>
 
-    <button class="month-toggle-button"> Month </button>
-    <div class="month-toggle-dropdown">
-      <%= button_to "January", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "1", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "February", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "2", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "March", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "3", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "April", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "4", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "May", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "5", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "June", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "6", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "July", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "7", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "August", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "8", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "September", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "9", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "October", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "10", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "November", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "11", view: "#{@view}"}, class: "month-selector-button" %>
-      <%= button_to "December", user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{@user.id}", month: "12", view: "#{@view}"}, class: "month-selector-button" %>
-    </div>
 
-  </div>
 </div>
 
 
-<div style="text-align:center">
-<h1><%= @parsed_month %><h1>
-<h3> <%= @budget.start_date %> | <%= @budget.end_date %> </h3>
-</div>
+
+
 
 <% if @view == "Overview" %>
   <%= render "pages/overview" %>

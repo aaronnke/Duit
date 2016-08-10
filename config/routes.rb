@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations', omniauth_callbacks: 'users/omniauth_callbacks'}
   #devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  root 'pages#dashboard'
+  root 'pages#index'
 
   get "users/:id/profile" => "pages#profile", as: :user_profile
   get "users/:id/dashboard" => "pages#dashboard", as: :user_dashboard

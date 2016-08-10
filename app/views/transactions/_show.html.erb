@@ -1,12 +1,6 @@
-<div class="transaction-box" style="text-align: center">
+<div class="transaction-box">
 <div id="abc">
-	<h1><%= @user.name %></h1>
 </div>
-  <h4> Date (auto-filled-in) |  Description  |  Tag  |  Amount </h4>
-
-  <% if @user == current_user %>
-    <%= render "transactions/new" %>
-  <% end %>
 
   <%= render "transactions/index" %>
 

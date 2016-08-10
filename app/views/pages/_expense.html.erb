@@ -1,6 +1,15 @@
-<div class= "mdl-grid">
+<div class="container-fluid">
+  <div class="row">  
+<div style= "text-align: center"> <% if params[:budgettype] = "actualexpense" %>
+    <h1> Actual Expenses </h1>
+    <% elsif params[:budgettype] = "expense" %>
+    <h1> Planned Expenses </h1>
+    <% end %>
+</div>
+
+    
   <% @group_users.each_with_index do |user| %>
-    <div class="mdl-cell mdl-cell--3-col", style="text-align:center">
+    <div class="col-md-3", style="text-align:center">
     <%= button_to user_dashboard_path(current_user.id), method: :get, style: "background-color: white", params: { user_id: "#{user.id}", month: "#{@month}", view: "#{@view}" } do %>
       <h3> <%= user.name %> </h3>
         <% if user.avatar.present? %>
@@ -12,49 +21,44 @@
   <%end%>
 </div>
 
-<div style= "text-align: center"> <% if params[:budgettype] = "actualexpense" %>
-    <h1> Actual Expenses </h1>
-    <% elsif params[:budgettype] = "expense" %>
-    <h1> Planned Expenses </h1>
-    <% end %>
-</div>
 
-<div class="mdl-grid">
+
+<div class="row">
   
-  <div class= "mdl-cell mdl-cell--3-col" id='chart1' style="border-style: solid">
+  <div class= "col-md-3" id='chart1' style="border-style: solid">
   </div>
       <%= render_chart(@chart1, 'chart1') %>
 
 
-  <div class= "mdl-cell mdl-cell--3-col" id='chart2' style="border-style: solid">
+  <div class= "col-md-3" id='chart2' style="border-style: solid">
   </div>
       <%= render_chart(@chart2, 'chart2') %>
 
 
-  <div class= "mdl-cell mdl-cell--3-col" id='chart3' style="border-style: solid">
+  <div class= "col-md-3" id='chart3' style="border-style: solid">
   </div>
       <%= render_chart(@chart3, 'chart3') %>
 
 
-  <div class= "mdl-cell mdl-cell--3-col" id='chart4' style="border-style: solid">
+  <div class= "col-md-3" id='chart4' style="border-style: solid">
   </div>
       <%= render_chart(@chart4, 'chart4') %>
 
 </div>
 
 
-<div class = "mdl-grid" >
+<div class = "row" >
 
 
-  <div class= "mdl-cell mdl-cell--3-col">
+  <div class= "col-md-3">
     <%= button_to "Planned Expenses", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "expense", view: "Expense"} %>
   </div>
 
-    <div class= "mdl-cell mdl-cell--3-col">
+    <div class= "col-md-3">
       <%= button_to "Actual Expenses", user_dashboard_path(current_user.id),method: :get, params: { budgettype: "actualexpense", view: "Expense" }%>
   </div>
 
-
+</div>
 </div>
 
 
