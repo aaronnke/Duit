@@ -1,25 +1,53 @@
-<div class="mdl-grid--no-spacing navbar">
 
-  <%= link_to root_path, class: "navbar-button" do %>
-      <span class="navbar-link"> DUIT <span>
-  <% end %>
+<nav class="navbar navbar-inverse" style="height:10px;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Duit</a>
+    </div>
 
-  <% if user_signed_in? %>
-    <%= link_to destroy_user_session_path, method: :delete, class: "navbar-button logout-button" do %>
-        <span class="navbar-link"> Log Out <span>
-    <% end %>
-    <%= link_to user_profile_path(current_user.id), class: "navbar-button user-profile-button" do %>
-        <span class="navbar-link"> Profile <span>
-    <% end %>
-    <%= link_to user_dashboard_path(current_user.id), class: "navbar-button user-dashboard-button" do %>
-        <span class="navbar-link"> Dashboard <span>
-    <% end %>
-  <% else %>
-    <%= link_to new_user_session_path, class: "navbar-button login-button" do %>
-        <span class="navbar-link"> Log In <span>
-    <% end %>
-    <%= link_to new_user_registration_path, class: "navbar-button signup-button" do %>
-        <span class="navbar-link"> Sign Up <span>
-    <% end %>
-  <% end %>
-</div>
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <% if user_signed_in? %>
+      <ul class="nav navbar-nav">
+          <li><a href="<%=user_dashboard_path(current_user.id)%>">Dashboard</a></li>    
+
+          <li><a href="<%=user_profile_path(current_user.id) %>">Profile</a></li>  
+      </ul>
+      <%end%>
+      <% if user_signed_in? %>      
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Edit Profile</a></li>
+
+            <%= link_to destroy_user_session_path, method: :delete do %>
+                <li style="display: block; padding: 11px 15px; clear: both; font-weight: 400; line-height: 2; color: #ffffff; white-space: nowrap;"> Log Out </li>
+            <% end %>
+
+          </ul>
+        </li>
+      <%else%> 
+      <ul class="nav navbar-nav navbar-right">
+
+          <li><a href="<%=new_user_session_path%>">Login</a></li>          
+          <li><a href="<%=new_user_registration_path%>">Sign up</a></li> 
+      </ul>     
+      <%end%>
+
+
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+

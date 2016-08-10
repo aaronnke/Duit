@@ -50,7 +50,7 @@ class PagesController < ApplicationController
 
       set_actual_pie_charts(category: "income")
     else
-      
+
       set_income_everything
     end  
       generate_graph
@@ -196,6 +196,7 @@ class PagesController < ApplicationController
       @overview_incomes_transaction << user.bank_accounts.first.total_transactions_sum_by_category_and_month(category: "income", month: Date.parse(@parsed_month))
       @overview_expenses_transaction << user.bank_accounts.first.total_transactions_sum_by_category_and_month(category: "expense", month: Date.parse(@parsed_month))
       @overview_balances_transaction << user.bank_accounts.first.total_transactions_sum_by_category_and_month(category: "balance", month: Date.parse(@parsed_month))
+      
     end
 
   end
