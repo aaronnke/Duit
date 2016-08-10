@@ -1,3 +1,8 @@
 <% @transactions.each do |transaction| %>
-  <p> <%= transaction.created_at.day %> | <%= transaction.description %> | <%= transaction.tag.description %> | <%= transaction.amount %>  </p>
+	<% if transaction.tag.category == "income" %>
+  <div style= "color: green"> <%= transaction.created_at.day %> | <%= transaction.description %> | <%= transaction.tag.description %> | <%= transaction.amount %>  </div>
+  	<% else %>
+  	<div style = "color: red"><b> <%= transaction.created_at.day %> | <%= transaction.description %> | <%= transaction.tag.description %> | <%= transaction.amount %></b>
+  	</div>
+  	<% end %>
 <% end %>
