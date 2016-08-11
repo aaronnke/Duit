@@ -24,27 +24,9 @@
       <th class = "text-right">Amount</th>
     </tr>
   </thead>
-  <tbody>
-
-<% @transactions.reverse.each do |transaction| %>
-	<% if transaction.tag.category == "income" %>
-		<tr class="success">
-	      	<td><%= transaction.created_at.strftime("%d %b") %></td>
-	      	<td><%= transaction.description %></td>
-	      	<td><%= transaction.tag.description %></td>
-	      	<td>Addition</td>
-	      	<td class = "text-right"><%= number_to_currency(transaction.amount, unit: "MYR ") %></td>
-    	</tr>
-    <%else%>	
-	    <tr class="danger">
-	      <td><%= transaction.created_at.strftime("%d %b") %></td>
-	      <td><%= transaction.description %></td>
-	      <td><%= transaction.tag.description %></td>
-	      <td>Deduction</td>
-	      <td class = "text-right"><%= number_to_currency(transaction.amount, unit: "MYR ") %></td>
-	    </tr>
-    <%end%>
-<%end%>   
+  <tbody id='transactions-table'>
+	<%= render partial: 'transactions/table' %>
+  </tbody>
 
 
   </tbody>

@@ -25,6 +25,7 @@
     <li role="presentation" class="<%= 'active' if @budget_type == nil || @budget_type == 'expense' %>"><%= link_to "Budgeted", user_dashboard_path(current_user.id, budgettype: "expense", view: "Expense") %></li>
     <li role="presentation" class="<%= 'active' if @budget_type == 'actualexpense' %>"> <%= link_to "Actual", user_dashboard_path(current_user.id, budgettype: "actualexpense", view: "Expense" ) %></li>
   </ul>
+  <% @group_users = @group_users + Array.new(4 - @group_users.count, nil) %>
   <% @group_users.each_with_index do |user, index| %>
     <% number = index+1 %>
     <div class="panel panel-default col-md-3 overviewbox">
@@ -33,9 +34,9 @@
            <%= render_chart(@charts[index], "chart#{number}") %>
         </div>
         <div>
-          <% if user.id.present? %> 
-          <%= button_to user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{user.id}", month: "#{@month}", view: "#{@view}" } do %>
-              <h3> <%= user.name %> </h3>     
+          <% unless user.nil? %> 
+          <%= link_to user_dashboard_path(current_user.id, user_id: "#{user.id}", month: "#{@month}", view: "#{@view}") do %>
+              <%= user.name %>     
           <% end %>
         <% end %>
         </div>

@@ -70,9 +70,10 @@ class PagesController < ApplicationController
     elsif @view == "Balance"
       set_actual_pie_charts(category: "balance")
     end
-    while @group_users.count < 4 do 
-      @group_users << User.new
-    end
+    
+    # while @group_users.count < 4 do 
+    #   @group_users << User.new
+    # end
   end
 
 
@@ -264,7 +265,7 @@ class PagesController < ApplicationController
     
   @progressbarnumber = [66,77,88,55]
   @colorarray = ["#88C057","#9777A8", "#ED7161", "#47A0DB"]
-  width = 320
+  width = 290
   height = 320
 
     #Budget Expense Pie Chart1
