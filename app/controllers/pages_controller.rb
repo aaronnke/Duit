@@ -38,7 +38,7 @@ class PagesController < ApplicationController
     set_dashboard_budgets
     set_dashboard_transactions
 
-    if @view == "Overview"
+    if @view == "Overview" || @view == "Goal"
       set_overview_transactions
       set_overview_budgets
       set_overview_percentages

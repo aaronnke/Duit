@@ -10,7 +10,7 @@
 
       <li><%= link_to "Expense", user_dashboard_path(current_user.id, user_id: "#{@user.id}", month: "#{@month}", view: "Expense"), class: "dashboard-selector-button" %></li>
 
-      <li><%= link_to "Goal", user_dashboard_path(current_user.id, user_id: "#{@user.id}", month: "#{@month}", view: "Expense"), class: "dashboard-selector-button" %></li>
+      <li><%= link_to "Goal", user_dashboard_path(current_user.id, user_id: "#{@user.id}", month: "#{@month}", view: "Goal"), class: "dashboard-selector-button" %></li>
     </ul>
   </li>  <li class="dropdown">
     <a aria-expanded="false" class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -50,4 +50,6 @@
   <%= render "pages/expense" %>
 <% elsif @view == "Balance" %>
   <%= render "pages/balance" %>
+<% elsif @view == "Goal" %>
+  <%= render "pages/goal" %>
 <% end %>

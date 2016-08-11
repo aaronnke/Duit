@@ -1,76 +1,82 @@
-<div class= "container">
-  <div class = "row">
-  <% @group_users.each_with_index do |user| %>
-    <%= button_to user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{user.id}", month: "#{@month}", view: "#{@view}" } do %>
-      <h3> <%= user.name %> </h3>
-      <div class="col-md-3">
-        <% if user.avatar.present? %>
-          <%= image_tag user.avatar.thumb.url %>
+<div class="container-fluid">
+  <div class="row">  
+    <div style= "text-align: center"> 
+    
+    <% if params[:budgettype] == "actualincome" %>
+        <h1> Actual Income </h1>
+        <% elsif @budget_type == "income" %>
+        <h1> Planned Income </h1>
         <% end %>
-      </div>
-    <% end %>
-  <%end%>
-</div>
-
-
-<div class = "row" >
-  <div class= "col-md-3">
-    <%= button_to "Planned Income", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "income", view: "Income"} %>
-  </div>
-
-    <div class= "col-md-3">
-      <%= button_to "Actual Income", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "actualincome", view: "Income"} %>
+    </div>
   </div>
 </div>
+
+<!-- <ul class="nav nav-pills col-md-offset-4">
+  <li class="active"><a href="#">Budgeted</a></li>
+  <li><a href="#">Actual</a></li>
+
+</ul> -->
 
 
 
 
 <div class="row">
-  <div class= "col-md-3" id='chart1'>
-  </div>
-      <%= render_chart(@chart1, 'chart1') %>
 
+<li class="<%= 'active' if params[:controller] == 'home' %>"> 
+  <ul class="nav nav-tabs" style="margin-left: 20px;">
+    <li role="presentation" class="<%= 'active' if @budget_type == nil || @budget_type == 'income' %>"><%= link_to "Budgeted", user_dashboard_path(current_user.id, budgettype: "income", view: "Income") %></li>
+    <li role="presentation" class="<%= 'active' if @budget_type == 'actualincome' %>"> <%= link_to "Actual", user_dashboard_path(current_user.id, budgettype: "actualincome", view: "Income" ) %></li>
+  </ul>
+  <% @group_users = @group_users + Array.new(4 - @group_users.count, nil) %>
+  <% @group_users.each_with_index do |user, index| %>
+    <% number = index+1 %>
+    <div class="panel panel-default col-md-3 overviewbox">
+      <div class="panel-body"> 
+        <div id='chart<%= number %>'>
+           <%= render_chart(@charts[index], "chart#{number}") %>
+        </div>
+        <div>
+          <% unless user.nil? %> 
+          <%= link_to user_dashboard_path(current_user.id, user_id: "#{user.id}", month: "#{@month}", view: "#{@view}") do %>
+              <%= image_tag(user.avatar_url, :size => "50x50", class: "avatarpic pull-left")%>
+               <%= user.name %>     
+          <% end %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  <%end%>
+</div>
 
-  <div class= "col-md-3" id='chart2'>
-  </div>
-      <%= render_chart(@chart2, 'chart2') %>
-
-
-  <div class= "col-md-3" id='chart3'>
-  </div>
-      <%= render_chart(@chart3, 'chart3') %>
-
-
-  <div class= "col-md-3" id='chart4'>
-  </div>
-      <%= render_chart(@chart4, 'chart4') %>
 
 </div>
 
 
-     <div class="w3-progress-container">
-      <div class="w3-progressbar" style="width: <%=@progressbarnumber[0] %>%; background-color: <%=@colorarray[0] %>"></div>
-    </div>
-</br>
-     <div class="w3-progress-container">
-      <div class="w3-progressbar" style="width: <%=@progressbarnumber[1] %>%; background-color: <%=@colorarray[1] %>"></div>
-    </div>
-</br>
-     <div class="w3-progress-container">
-      <div class="w3-progressbar" style="width: <%=@progressbarnumber[2] %>%; background-color: <%=@colorarray[2] %>"></div>
-    </div>
- </br>
 
-     <div class="w3-progress-container">
-      <div class="w3-progressbar" style="width: <%=@progressbarnumber[3] %>%; background-color: <%=@colorarray[3] %>"></div>
-    </div>
- </br>
- </div>
-<button class="transaction-button"> Transaction </button>
-<button class="comparison-button"> Comparison </button>
+
+
+</div>
+</div>
 
 <%= render "transactions/show" %>
 
+// <script type="text/javascript">
+//   $('.budget-type').click(function(e){
 
+//     var id = <%= current_user.id %>
+//     e.preventDefault();
+//       $.ajax ({
+//         url: '/users/' + id + '/dashboard/?budgettype=expense&view=Expense',
+//         type: 'get',
+//         dataType: 'JSON',
+//         data:
+//          { data: { budgettype: "expense", view: "Expense" } }
+
+//      }).success(function(data){
+
+//      }); 
+//   }) 
+// </script>
+<!-- render "budgets/comparison" -->
  <!-- render "budgets/piecharts" -->
+
