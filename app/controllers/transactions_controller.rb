@@ -13,6 +13,18 @@ class TransactionsController < ApplicationController
       redirect_to user_dashboard_path(current_user.id)
     end
 
+    if @tag.category == "income"
+      @account = BankAccount.find_by(user_id: current_user.id)
+      @new_balance = @transaction.bank_account.balance + @transaction.amount 
+      @account.balance = @new_balance
+      @account.save 
+    else 
+      @account = BankAccount.find_by(user_id: current_user.id)
+      @new_balance = @transaction.bank_account.balance - @transaction.amount 
+      @account.balance = @new_balance
+      @account.save 
+    end
+      
   end
 
 
