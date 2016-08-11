@@ -107,9 +107,41 @@
 
 
   <div class="row">
+
+  <!-- Default panel contents -->
+    <% @group_users.each_with_index do |user, index| %>
+ <div class="panel panel-default col-md-3" style="padding-bottom: 15px;" >   
+  <div class="panel-heading">Balances: <%= number_to_currency(@total_budget_balance[index], unit: "MYR ") %></div>
+
+  <!-- Table -->
+
+
+  <table class="table">
+    <tr>
+      <th>Category</th>  
+      <th>Amount</th>
+    </tr>
+    <% @budget_balances[index].each do |balance| %>
+    <tr>
+        <td><%= balance.tag.description %> </td>
+        <td><%= number_to_currency(balance.amount, unit: "MYR ") %></td>
+    </tr>
+    <% end %>  
+  </table>
+  <%if user.id == current_user.id %>
+     <%= render "budget_types/new_balance", index: index %>
+   <% end %> 
+ </div>
+  <%end%>
+</div>
+
+
+
+
+  <div class="row">
    <% @group_users.each_with_index do |user, index| %>
     <div class="col-md-3">
- 
+
     <h3> Leftover: <%= number_to_currency(@total_budget_income[index] - @total_budget_expense[index] - @total_budget_balance[index], unit: "MYR ")  %> </h3>
     </div>
     <%end %>
