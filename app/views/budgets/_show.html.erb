@@ -35,14 +35,20 @@
 
 
 
-    <h1> <%= @budget.first.name %> </h1>
-    <%= button_to "<", user_profile_path(current_user.id), method: :get, params: {month: "#{@month - 1}"}, class: "pull-left" %>
 
-    <%= button_to ">", user_profile_path(current_user.id), method: :get, params: {month: "#{@month + 1}"}, class: "pull-right" %>
+
+  
+
+
+<ul class="pager">
+    <li class="previous"><%= link_to "< Previous Month", user_profile_path(current_user.id, month: "#{@month - 1}"), class: "pull-left" %></li>
+
+     <li class="next"><%= link_to "Next Month >", user_profile_path(current_user.id, month: "#{@month + 1}"), class: "pull-right" %></li>
+</ul>     
 </br>
+
+      <h1> <%= @budget.first.name %> </h1>
     <h2> Start Date: <%= @budget.first.start_date %> | End Date: <%= @budget.first.end_date %> </h2>
-
-
 
   <div class="row">
 
