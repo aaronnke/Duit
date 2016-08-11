@@ -1,3 +1,4 @@
+<div class = "container">
 <% unless current_user.bank_accounts.empty? %>
 
   <% if current_user.bank_accounts.first.budgets.empty? %>
@@ -31,16 +32,16 @@
     <% end %>
 
   <% else %>
-
-    <%= button_to "<", user_profile_path(current_user.id), method: :get, params: {month: "#{@month - 1}"} %>
     <h1> <%= @budget.first.name %> </h1>
-    <%= button_to ">", user_profile_path(current_user.id), method: :get, params: {month: "#{@month + 1}"} %>
+    <%= button_to "<", user_profile_path(current_user.id), method: :get, params: {month: "#{@month - 1}"}, class: "pull-left" %>
 
+    <%= button_to ">", user_profile_path(current_user.id), method: :get, params: {month: "#{@month + 1}"}, class: "pull-right" %>
+</br>
     <h2> Start Date: <%= @budget.first.start_date %> | End Date: <%= @budget.first.end_date %> </h2>
 
-  <div class="mdl-grid">
+  <div class="row">
     <% @group_users.each do |user| %>
-    <div class = "mdl-cell mdl-cell--3-col">
+    <div class = "col-md-3">
     <h3><%= user.name %></h3>
       <% if user.avatar.present? %>
       <%= image_tag user.avatar.thumb %>
@@ -49,9 +50,9 @@
     <% end %>
   </div>
 
-  <div class="mdl-grid">
+  <div class="row">
     <% @group_users.each_with_index do |user, index| %>
-  <div class="mdl-cell mdl-cell--3-col">
+  <div class="col-md-3">
     <h3> Incomes: <%= @total_budget_income[index] %> </h3>
     <%if user.id == current_user.id %>
       <%= render "budget_types/new_income", index: index %>
@@ -61,9 +62,9 @@
   <%end%>
   </div>
 
-  <div class="mdl-grid">
+  <div class="row">
    <% @group_users.each_with_index do |user, index| %>
-   <div class= "mdl-cell mdl-cell--3-col">
+   <div class= "col-md-3">
     <h3> Expenses: <%= @total_budget_expense[index] %>  </h3>
     <%if user.id == current_user.id %>
     <%= render "budget_types/new_expense", index: index %>
@@ -73,9 +74,9 @@
     <%end%>
     </div>
 
-  <div class="mdl-grid">
+  <div class="row">
    <% @group_users.each_with_index do |user, index| %>
-    <div class= "mdl-cell mdl-cell--3-col">
+    <div class= "col-md-3">
     <h3> Balances: <%= @total_budget_balance[index] %>  </h3>
      <%if user.id == current_user.id %>
     <%= render "budget_types/new_balance", index: index %>
@@ -85,9 +86,9 @@
     <%end%>
     </div>
 
-  <div class="mdl-grid">
+  <div class="row">
    <% @group_users.each_with_index do |user, index| %>
-    <div class="mdl-cell mdl-cell--3-col">
+    <div class="col-md-3">
     <h3> Leftover: <%= @total_budget_income[index] - @total_budget_expense[index] - @total_budget_balance[index] %> </h3>
     </div>
     <%end %>
@@ -101,3 +102,4 @@
   <h1> Please create a bank account above! </h1>
 
 <% end %>
+</div>

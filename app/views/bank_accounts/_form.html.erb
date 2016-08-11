@@ -2,8 +2,8 @@
 	<%= f.label :"Bank Account Number:"%>
 	<%= f.text_field :bank_account_number %>
 </br>
-	<%= f.label :"Pin:"%>
-	<%= f.password_field :pin %>
+
+	<%= f.hidden_field :pin, :value => current_user.id %>
 	<%= f.hidden_field :user_id, :value => current_user.id  %>
 </br>
 	<%= f.label :"Balance:"%>

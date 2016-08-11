@@ -9,16 +9,15 @@
     <%@arrayeaners = []%>
 <!-- First loop for logic-->    
     <% @group_users.each_with_index do |user, index| %>
-      <% @arrayeaners << @overview_incomes_budget[index]%>
+      <% @arrayeaners << @overview_incomes_budget[index] unless @overview_incomes_budget[index].nil? %>
     <% end %>
 <!-- 2nd loop for display-->    
   <% @group_users.each_with_index do |user, index|%>
     </br>
-
-    <% percentage = ((@overview_incomes_budget[index].to_f / @arrayeaners.inject(0){|sum,x| sum + x }.to_f)*100) %>
+    <% percentage = ((@overview_incomes_budget[index].to_f / @arrayeaners.inject(0){|sum,x| sum + x }.to_f)*100) unless @arrayeaners.nil? %>
     <div>
     <p class = "username pull-left"><%= user.name %> </p>
-    <p class = "pull-right"><%= number_to_currency(@overview_incomes_budget[index], unit: "MYR ") %> of total <%= number_to_currency(@arrayeaners.inject(0){|sum,x| sum + x }, unit: "MYR ") %></p>
+    <p class = "pull-right"><%= number_to_currency(@overview_incomes_budget[index] || 0, unit: "MYR ") %> of total <%= number_to_currency(@arrayeaners.inject(0){|sum,x| sum + x }, unit: "MYR ") %></p>
   </div>
     <div class="progress">
       <div class="progress-bar" style='width: <%= percentage %>%; background-color: <%= @colors[index] %>;'>
@@ -41,14 +40,15 @@
     <%@arrayeaners2 = []%>
 <!-- First loop for logic-->    
     <% @group_users.each_with_index do |user, index| %>
-      <% @arrayeaners2 << @overview_expenses_budget[index]%>
+      <% @arrayeaners2 << @overview_expenses_budget[index]  unless @overview_incomes_budget[index].nil? %>
     <% end %>
 <!-- 2nd loop for display-->    
   <% @group_users.each_with_index do |user, index|%>
     </br>
     <p class = "username pull-left"><%= user.name %> </p>
-    <% percentage = ((@overview_expenses_budget[index].to_f / @arrayeaners2.inject(0){|sum,x| sum + x }.to_f)*100) %>
-    <p class = "pull-right"><%= number_to_currency(@overview_expenses_budget[index], unit: "MYR ") %> of total <%= number_to_currency(@arrayeaners2.inject(0){|sum,x| sum + x }, unit: "MYR ") %></p>
+    <% percentage = ((@overview_expenses_budget[index].to_f / @arrayeaners2.inject(0){|sum,x|sum + x  }.to_f)*100) %>
+
+    <p class = "pull-right"><%= number_to_currency(@overview_expenses_budget[index] || 0, unit: "MYR ") %> of total <%= number_to_currency(@arrayeaners2.inject(0){|sum,x| sum + x }, unit: "MYR ") %></p>
     <div class="progress">
       <div class="progress-bar" style='width: <%= percentage %>%; background-color: <%= @colors[index] %>;'>
       </div>
@@ -73,7 +73,7 @@
     <h3> Income Tracker </h3>
     <% @group_users.each_with_index do |user, index| %>
     <p class = "username pull-left"><%= user.name %> </p>
-    <p class = "pull-right"> <%= number_to_currency(@overview_incomes_transaction[index], unit: "MYR ") %> Earned / <%= number_to_currency(@overview_incomes_budget[index], unit: "MYR ") %> Planned</p>
+    <p class = "pull-right"> <%= number_to_currency(@overview_incomes_transaction[index] || 0, unit: "MYR ") %> Earned / <%= number_to_currency(@overview_incomes_budget[index], unit: "MYR ") %> Planned</p>
     <div class="progress">
       <div class="progress-bar" style='width: <%= @overview_incomes_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
       </div>
@@ -92,7 +92,7 @@
     <h3> Expense Tracker </h3>
     <% @group_users.each_with_index do |user, index| %>
     <p class = "username pull-left"><%= user.name %> </p>
-    <p class = "pull-right"> <%= number_to_currency(@overview_expenses_transaction[index], unit: "MYR ") %> Spent / <%= number_to_currency(@overview_expenses_budget[index], unit: "MYR ") %>  Budget</p>
+    <p class = "pull-right"> <%= number_to_currency(@overview_expenses_transaction[index] || 0, unit: "MYR ") %> Spent / <%= number_to_currency(@overview_expenses_budget[index], unit: "MYR ") %>  Budget</p>
     <div class="progress">
       <div class="progress-bar" style='width: <%= @overview_expenses_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
       </div>
