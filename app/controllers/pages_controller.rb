@@ -70,7 +70,9 @@ class PagesController < ApplicationController
     elsif @view == "Balance"
       set_actual_pie_charts(category: "balance")
     end
-
+    while @group_users.count < 4 do 
+      @group_users << User.new
+    end
   end
 
 
@@ -263,7 +265,7 @@ class PagesController < ApplicationController
   @progressbarnumber = [66,77,88,55]
   @colorarray = ["#88C057","#9777A8", "#ED7161", "#47A0DB"]
   width = 320
-  height = 240
+  height = 320
 
     #Budget Expense Pie Chart1
     data_table1 = GoogleVisualr::DataTable.new
@@ -310,6 +312,7 @@ class PagesController < ApplicationController
     @chart4 = GoogleVisualr::Interactive::PieChart.new(data_table4, option4)
     formatter.columns(1) # Apply to 2nd Column
     data_table4.format(formatter)
+    @charts = [@chart1, @chart2, @chart3, @chart4]
 
   end
 

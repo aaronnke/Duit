@@ -1,25 +1,12 @@
 <div class="container-fluid">
   <div class="row">  
-<div style= "text-align: center"> <% if params[:budgettype] = "actualexpense" %>
-    <h1> Actual Expenses </h1>
-    <% elsif params[:budgettype] = "expense" %>
-    <h1> Planned Expenses </h1>
-    <% end %>
-</div>
-
-    
-  <% @group_users.each_with_index do |user| %>
-    <div class="col-md-3", style="text-align:center">
-    <%= button_to user_dashboard_path(current_user.id), method: :get, style: "background-color: transparent", params: { user_id: "#{user.id}", month: "#{@month}", view: "#{@view}" } do %>
-      <h3> <%= user.name %> </h3>
-        <% if user.avatar.present? %>
-          <%= image_tag user.avatar.thumb.url %>
+    <div style= "text-align: center"> <% if params[:budgettype] = "actualexpense" %>
+        <h1> Actual Expenses </h1>
+        <% elsif params[:budgettype] = "expense" %>
+        <h1> Planned Expenses </h1>
         <% end %>
-      
-    <% end %>
     </div>
-  <%end%>
-</div>
+  </div>
 </div>
 
 <!-- <ul class="nav nav-pills col-md-offset-4">
@@ -34,42 +21,27 @@
 <div class="row">
 
 <li class="<%= 'active' if params[:controller] == 'home' %>"> 
-<ul class="nav nav-tabs">
-
-
-  <li role="presentation" class="<%= 'active' if @budget_type == nil || @budget_type == 'expense' %>"><%= link_to "Budgeted", user_dashboard_path(current_user.id, budgettype: "expense", view: "Expense") %></li>
-  <li role="presentation" class="<%= 'active' if @budget_type == 'actualexpense' %>"> <%= link_to "Actual", user_dashboard_path(current_user.id, budgettype: "actualexpense", view: "Expense" ) %></li>
-</ul>
-
-  <div class="panel panel-default col-md-3 overviewbox" id='chart1'>
-  <div class="panel-body">  
-    <%= render_chart(@chart1, 'chart1') %>
-  </div>
-  </div>
-  
-
-  <div class="panel panel-default col-md-3 overviewbox" id='chart2'>
-  <div class="panel-body">  
-    <%= render_chart(@chart2, 'chart2') %>
-  </div>
-  </div>
-
-
-
-    <div class="panel panel-default col-md-3 overviewbox" id='chart3'>
-  <div class="panel-body">  
-    <%= render_chart(@chart3, 'chart3') %>
-  </div>
-  </div>
-
-
-
-  <div class="panel panel-default col-md-3 overviewbox" id='chart4'>
-  <div class="panel-body">  
-    <%= render_chart(@chart4, 'chart4') %>
-  </div>
-  </div>
-
+  <ul class="nav nav-tabs" style="margin-left: 20px;">
+    <li role="presentation" class="<%= 'active' if @budget_type == nil || @budget_type == 'expense' %>"><%= link_to "Budgeted", user_dashboard_path(current_user.id, budgettype: "expense", view: "Expense") %></li>
+    <li role="presentation" class="<%= 'active' if @budget_type == 'actualexpense' %>"> <%= link_to "Actual", user_dashboard_path(current_user.id, budgettype: "actualexpense", view: "Expense" ) %></li>
+  </ul>
+  <% @group_users.each_with_index do |user, index| %>
+    <% number = index+1 %>
+    <div class="panel panel-default col-md-3 overviewbox">
+      <div class="panel-body"> 
+        <div id='chart<%= number %>'>
+           <%= render_chart(@charts[index], "chart#{number}") %>
+        </div>
+        <div>
+          <% if user.id.present? %> 
+          <%= button_to user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{user.id}", month: "#{@month}", view: "#{@view}" } do %>
+              <h3> <%= user.name %> </h3>     
+          <% end %>
+        <% end %>
+        </div>
+      </div>
+    </div>
+  <%end%>
 </div>
 
 
