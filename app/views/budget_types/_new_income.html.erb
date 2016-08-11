@@ -1,5 +1,6 @@
-<%= form_for :new_income, url: budget_create_new_income_path(@budget[index].id), method: :post  do |f| %>
-  <%= f.text_field :tag %>
-  <%= f.number_field :amount %>
-  <%= f.submit "Add" %>
+<%= form_for :new_income, url: budget_create_new_income_path(@budget[index].id), method: :post,:html => {:class => 'form-inline' } do |f| %>
+
+  <%= f.text_field :tag, class: "profileinputform1 form-group", placeholder: "Tag"  %>
+  <%= f.number_field :amount, class: "profileinputform form-group", placeholder: "RM 0.00" %>
+  <%= f.submit "Add", class: "btn btn-primary" %>
 <% end %>

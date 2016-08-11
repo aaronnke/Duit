@@ -274,7 +274,7 @@ class PagesController < ApplicationController
     data_table1.new_column('number', 'Expenses')
     data_table1.add_rows(checkifnil(user_data_array[0]))
     formatter = GoogleVisualr::NumberFormat.new( { :prefix => 'MYR ', :negativeColor => 'red', :negativeParens => true } )
-    option1 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none', colors: @colorarray}
+    option1 = { width: width, height: height, pieHole: 0.6,legend: 'none', pieSliceText: 'none' , colors: @colorarray}
     @chart1 = GoogleVisualr::Interactive::PieChart.new(data_table1, option1)
     formatter.columns(1) # Apply to 2nd Column
     data_table1.format(formatter)
