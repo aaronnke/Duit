@@ -32,6 +32,9 @@
     <% end %>
 
   <% else %>
+
+
+
     <h1> <%= @budget.first.name %> </h1>
     <%= button_to "<", user_profile_path(current_user.id), method: :get, params: {month: "#{@month - 1}"}, class: "pull-left" %>
 
@@ -39,57 +42,75 @@
 </br>
     <h2> Start Date: <%= @budget.first.start_date %> | End Date: <%= @budget.first.end_date %> </h2>
 
-  <div class="row">
-    <% @group_users.each do |user| %>
-    <div class = "col-md-3">
-    <h3><%= user.name %></h3>
-      <% if user.avatar.present? %>
-      <%= image_tag user.avatar.thumb %>
-      <% end %>
-    </div>
-    <% end %>
-  </div>
+
 
   <div class="row">
+
+  <!-- Default panel contents -->
     <% @group_users.each_with_index do |user, index| %>
-  <div class="col-md-3">
-    <h3> Incomes: <%= @total_budget_income[index] %> </h3>
-    <%if user.id == current_user.id %>
-      <%= render "budget_types/new_income", index: index %>
-    <% end %>
-    <%= render "budgets/income", index: index %>
-  </div>
+ <div class="panel panel-default col-md-3" style="padding-bottom: 15px;">   
+  <div class="panel-heading">Income: <%= number_to_currency(@total_budget_income[index], unit: "MYR ") %></div>
+
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <th>Category</th>  
+      <th>Amount</th>
+    </tr>
+    <% @budget_incomes[index].each do |income| %>
+    <tr>
+        <td><%= income.tag.description %> </td>
+        <td><%= number_to_currency(income.amount, unit: "MYR ") %></td>
+    </tr>
+    <% end %>  
+  </table>
+  <%if user.id == current_user.id %>
+     <%= render "budget_types/new_income", index: index %>
+   <% end %> 
+ </div>
   <%end%>
-  </div>
+</div>
+
+
+
+
+
 
   <div class="row">
-   <% @group_users.each_with_index do |user, index| %>
-   <div class= "col-md-3">
-    <h3> Expenses: <%= @total_budget_expense[index] %>  </h3>
-    <%if user.id == current_user.id %>
-    <%= render "budget_types/new_expense", index: index %>
-    <% end %>
-    <%= render "budgets/expense", index: index %>
-    </div>
-    <%end%>
-    </div>
 
-  <div class="row">
-   <% @group_users.each_with_index do |user, index| %>
-    <div class= "col-md-3">
-    <h3> Balances: <%= @total_budget_balance[index] %>  </h3>
-     <%if user.id == current_user.id %>
-    <%= render "budget_types/new_balance", index: index %>
-    <% end %>
-    <%= render "budgets/balance", index: index %>
-    </div>
-    <%end%>
-    </div>
+  <!-- Default panel contents -->
+    <% @group_users.each_with_index do |user, index| %>
+ <div class="panel panel-default col-md-3" style="padding-bottom: 15px;" >   
+  <div class="panel-heading">Expenses: <%= number_to_currency(@total_budget_expense[index], unit: "MYR ") %></div>
+
+  <!-- Table -->
+  <table class="table">
+    <tr>
+      <th>Category</th>  
+      <th>Amount</th>
+    </tr>
+    <% @budget_expenses[index].each do |expense| %>
+    <tr>
+        <td><%= expense.tag.description %> </td>
+        <td><%= number_to_currency(expense.amount, unit: "MYR ") %></td>
+    </tr>
+    <% end %>  
+  </table>
+  <%if user.id == current_user.id %>
+     <%= render "budget_types/new_expense", index: index %>
+   <% end %> 
+ </div>
+  <%end%>
+</div>
+
+
+
 
   <div class="row">
    <% @group_users.each_with_index do |user, index| %>
     <div class="col-md-3">
-    <h3> Leftover: <%= @total_budget_income[index] - @total_budget_expense[index] - @total_budget_balance[index] %> </h3>
+ 
+    <h3> Leftover: <%= number_to_currency(@total_budget_income[index] - @total_budget_expense[index] - @total_budget_balance[index], unit: "MYR ")  %> </h3>
     </div>
     <%end %>
     </div>

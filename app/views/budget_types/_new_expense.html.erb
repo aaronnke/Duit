@@ -1,5 +1,5 @@
-<%= form_for :new_expense, url: budget_create_new_expense_path(@budget[index].id), method: :post  do |f| %>
-  <%= f.text_field :tag %>
-  <%= f.number_field :amount %>
+<%= form_for :new_expense, url: budget_create_new_expense_path(@budget[index].id), method: :post,:html => {:class => 'form-inline' }   do |f| %>
+  <%= f.text_field :tag, class: "profileinputform1 form-group" %>
+  <%= f.number_field :amount , class: "profileinputform form-group"%>
   <%= f.submit "Add" %>
 <% end %>
