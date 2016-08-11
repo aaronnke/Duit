@@ -57,8 +57,17 @@ $navbar-color: #e57373;
 .landing {
   width:100%;
   margin: 0 auto;
-  height: 1800px;
-  background-image: image-url("landing_full.jpg");
+  height: 210em;
+  background-image: image-url("landing_page_final.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+.goal-banner {
+  width:100%;
+  margin: 0 auto;
+  height: 39em;
+  background-image: image-url("goal-01.jpg");
   background-size: 100%;
   background-repeat: no-repeat;
 }

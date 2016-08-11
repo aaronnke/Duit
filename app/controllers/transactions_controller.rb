@@ -12,6 +12,19 @@ class TransactionsController < ApplicationController
         format.js
       end
 
+
+    if @tag.category == "income"
+      @account = BankAccount.find_by(user_id: current_user.id)
+      @new_balance = @transaction.bank_account.balance + @transaction.amount 
+      @account.balance = @new_balance
+      @account.save 
+    else 
+      @account = BankAccount.find_by(user_id: current_user.id)
+      @new_balance = @transaction.bank_account.balance - @transaction.amount 
+      @account.balance = @new_balance
+      @account.save 
+    end
+     
     else
       flash[:notice] = "Tag doesn't exist. Please refer to tags from your budget."
       redirect_to(:back)
@@ -19,6 +32,7 @@ class TransactionsController < ApplicationController
         format.html { redirect_to(:back) }
         format.js
       end
+
       # redirect_to user_dashboard_path(current_user.id)
     end
 
