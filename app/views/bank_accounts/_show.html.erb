@@ -1,15 +1,13 @@
 <% if current_user.bank_accounts.exists? %>
-
-	<%= image_tag(current_user.avatar_url) %>
-	Name:
-	<%= current_user.name %>
+<%= image_tag(current_user.avatar_url, :size => "50x50", class: "avatarpic pull-left")%>
+	Name: <%= current_user.name %>
 	</br>
 	Bank Account Number:
 	<%= current_user.bank_accounts[0].bank_account_number %>
 	</br>
-	Card Number:
+<!-- 	Card Number:
 	<%= current_user.bank_accounts[0].bank_account_number.gsub(/(\d{6})/, '************')%>
-	</br>
+	</br> -->
 	Balance:
 	<%= number_to_currency(current_user.bank_accounts[0].balance, precision: 2)%>
 <%else%>

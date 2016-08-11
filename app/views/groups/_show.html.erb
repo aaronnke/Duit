@@ -1,4 +1,4 @@
-<h1>Group: <%= @group.group_name %></h1> 
+Group: <%= @group.group_name %>
 
 <% if @group.master_id == current_user.id %>
 	<p> Group Pass: <%= @group.group_token %> </p>
