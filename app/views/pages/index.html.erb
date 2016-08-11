@@ -1,4 +1,9 @@
 <%if user_signed_in? %>
 <% controller.redirect_to user_dashboard_path(current_user.id) %>
 
+<% else %> 
+
+<div class = "landing">
+</div>
+
 <%end%>
