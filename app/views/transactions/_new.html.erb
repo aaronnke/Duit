@@ -1,6 +1,6 @@
-<%= form_for @transaction, url: bank_account_transactions_path(current_user.bank_accounts.first), method: :post do |f| %>
-  <%= f.text_field :description %>
-  <%= f.text_field :tag %>
-  <%= f.number_field :amount %>
+<%= form_for @transaction, url: bank_account_transactions_path(current_user.bank_accounts.first), method: :post, :html => {:class => "form-inline"} do |f| %>
+  <%= f.text_field :description, :placeholder => "Description", :html => {:class => "form-control"} %>
+  <%= f.text_field :tag, :placeholder => "Tag", :html => {:class => "form-control"} %> 
+  <%= f.number_field :amount, :placeholder => "RM0.00", :html => {:class => "form-control"} %>
   <%= f.submit "Add Transaction" %>
 <% end %>

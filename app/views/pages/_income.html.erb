@@ -1,8 +1,9 @@
-<div class= "mdl-grid">
+<div class= "container">
+  <div class = "row">
   <% @group_users.each_with_index do |user| %>
     <%= button_to user_dashboard_path(current_user.id), method: :get, params: { user_id: "#{user.id}", month: "#{@month}", view: "#{@view}" } do %>
       <h3> <%= user.name %> </h3>
-      <div class="mdl-cell mdl-cell--3-col">
+      <div class="col-md-3">
         <% if user.avatar.present? %>
           <%= image_tag user.avatar.thumb.url %>
         <% end %>
@@ -12,12 +13,12 @@
 </div>
 
 
-<div class = "mdl-grid" >
-  <div class= "mdl-cell mdl-cell--3-col">
+<div class = "row" >
+  <div class= "col-md-3">
     <%= button_to "Planned Income", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "income", view: "Income"} %>
   </div>
 
-    <div class= "mdl-cell mdl-cell--3-col">
+    <div class= "col-md-3">
       <%= button_to "Actual Income", user_dashboard_path(current_user.id), method: :get, params: { budgettype: "actualincome", view: "Income"} %>
   </div>
 </div>
@@ -25,23 +26,23 @@
 
 
 
-<div class="mdl-grid">
-  <div class= "mdl-cell mdl-cell--3-col" id='chart1'>
+<div class="row">
+  <div class= "col-md-3" id='chart1'>
   </div>
       <%= render_chart(@chart1, 'chart1') %>
 
 
-  <div class= "mdl-cell mdl-cell--3-col" id='chart2'>
+  <div class= "col-md-3" id='chart2'>
   </div>
       <%= render_chart(@chart2, 'chart2') %>
 
 
-  <div class= "mdl-cell mdl-cell--3-col" id='chart3'>
+  <div class= "col-md-3" id='chart3'>
   </div>
       <%= render_chart(@chart3, 'chart3') %>
 
 
-  <div class= "mdl-cell mdl-cell--3-col" id='chart4'>
+  <div class= "col-md-3" id='chart4'>
   </div>
       <%= render_chart(@chart4, 'chart4') %>
 
@@ -65,7 +66,7 @@
       <div class="w3-progressbar" style="width: <%=@progressbarnumber[3] %>%; background-color: <%=@colorarray[3] %>"></div>
     </div>
  </br>
- 
+ </div>
 <button class="transaction-button"> Transaction </button>
 <button class="comparison-button"> Comparison </button>
 
