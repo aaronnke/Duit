@@ -1,0 +1,56 @@
+<div class="goal-banner">
+</div>
+
+
+<div class="container-fluid">
+<div class="row">
+
+  <div class="col-md-12">
+    <div class="panel panel-default overviewbox" >
+      <div class="panel-body overviewboxbody">
+            <h3>Group Contributions: Goals</h3>
+            <div class ="content-only">
+    <%@arrayeaners = []%>
+<!-- First loop for logic-->    
+    <% @group_users.each_with_index do |user, index| %>
+      <% @arrayeaners << @overview_balances_budget[index] unless @overview_balances_budget[index].nil? %>
+    <% end %>
+<!-- 2nd loop for display-->    
+  <% @group_users.each_with_index do |user, index|%>
+    </br>
+    <% percentage = ((@overview_balances_budget[index].to_f / @arrayeaners.inject(0){|sum,x| sum + x }.to_f)*100) unless @arrayeaners.nil? %>
+    <div>
+    <p class = "username pull-left"><%= user.name %> </p>
+    <p class = "pull-right"><%= number_to_currency(@overview_balances_budget[index] || 0, unit: "MYR ") %> of total <%= number_to_currency(@arrayeaners.inject(0){|sum,x| sum + x }, unit: "MYR ") %></p>
+  </div>
+    <div class="progress">
+      <div class="progress-bar" style='width: <%= percentage %>%; background-color: <%= @colors[index] %>;'>
+      </div>
+    </div>
+
+  <% end %>
+
+      </div>
+    </div>
+  </div>
+
+  </div>
+
+   <div class="col-md-12">
+    <div class="panel panel-default overviewbox">
+      <div class="panel-body">
+        <div class ="content-only">
+
+    <h3> Goals Tracker </h3>
+    <% @group_users.each_with_index do |user, index| %>
+    <p class = "username pull-left"><%= user.name %> </p>
+    <p class = "pull-right"> <%= number_to_currency(@overview_balances_transaction[index] || 0, unit: "MYR ") %> Earned / <%= number_to_currency(@overview_balances_budget[index], unit: "MYR ") %> Planned</p>
+    <div class="progress">
+      <div class="progress-bar" style='width: <%= @overview_balances_percentage[index] %>%; background-color: <%= @colors[index] %>;'>
+      </div>
+    </div>
+    <% end %>
+  </div>
+  </div>
+      </div>
+    </div>

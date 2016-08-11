@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="row">  
-    <div style= "text-align: center"> <% if params[:budgettype] = "actualexpense" %>
+    <div style= "text-align: center"> <% if params[:budgettype] == "actualexpense" %>
         <h1> Actual Expenses </h1>
-        <% elsif params[:budgettype] = "expense" %>
+        <% elsif params[:budgettype] == "expense" %>
         <h1> Planned Expenses </h1>
         <% end %>
     </div>
@@ -36,6 +36,7 @@
         <div>
           <% unless user.nil? %> 
           <%= link_to user_dashboard_path(current_user.id, user_id: "#{user.id}", month: "#{@month}", view: "#{@view}") do %>
+              <%= image_tag(user.avatar_url, :size => "50x50", class: "avatarpic pull-left")%> 
               <%= user.name %>     
           <% end %>
         <% end %>
