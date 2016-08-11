@@ -28,7 +28,7 @@ class PagesController < ApplicationController
 
 
   def dashboard
-
+    @budget_type = params[:budgettype]
     @view = params[:view] ||= "Overview"
     @transaction = Transaction.new
 
@@ -66,8 +66,6 @@ class PagesController < ApplicationController
         set_expense_everything
       end
         generate_graph
-
-
 
     elsif @view == "Balance"
       set_actual_pie_charts(category: "balance")

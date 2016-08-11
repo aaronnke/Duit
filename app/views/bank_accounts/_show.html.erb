@@ -1,4 +1,6 @@
 <% if current_user.bank_accounts.exists? %>
+
+	<%= image_tag(current_user.avatar_url) %>
 	Name:
 	<%= current_user.name %>
 	</br>

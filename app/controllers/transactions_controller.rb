@@ -10,7 +10,8 @@ class TransactionsController < ApplicationController
 
     else
       flash[:notice] = "Tag doesn't exist. Please refer to tags from your budget."
-      redirect_to user_dashboard_path(current_user.id)
+      redirect_to(:back)
+      # redirect_to user_dashboard_path(current_user.id)
     end
 
   end
