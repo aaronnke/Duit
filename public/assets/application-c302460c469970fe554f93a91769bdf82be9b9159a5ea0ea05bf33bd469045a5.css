@@ -1,3 +1,218 @@
+#mainNav {
+	position: fixed;
+	top: 0;
+	display: block;
+	width: 100%;
+	background: black;
+	margin-right: 1em;
+}
+
+.brand {
+	float: left;
+	margin-left: 1em;
+	padding: 1em;
+
+
+
+  	-webkit-transition:-webkit-transform 0.7s .3s ease;
+       -moz-transition:   -moz-transform 0.7s .3s ease;
+        -ms-transition:    -ms-transform 0.7s .3s ease;
+            transition:        transform 0.7s .3s ease;
+  
+  
+  -webkit-backface-visibility: hidden;
+   -webkit-transform: translate3d(0px, 0px, 0px);
+
+}
+
+#mainNav.hide-nav-bar{
+   -webkit-transform: translate(0, -100%);
+   -moz-transform: translate(0, -100%);
+   -ms-transform: translate(0, -100%);
+   transform: translate(0, -100%);
+   -webkit-backface-visibility: hidden;
+}
+
+a.menu-link {
+			   display: none;
+			}
+
+			.js nav[role=navigation] {
+				max-height: none;
+			}
+			nav[role=navigation] ul {
+				margin: 0 0 0 -0.25em;
+				border: 0;
+        		float: right;
+			}
+			
+			nav[role=navigation]  li {
+				display: inline-block;
+				margin: 0 0.25em;
+			}
+			nav[role=navigation] li a {
+				
+        border: 0;
+			}
+		}
+
+.container{
+	max-width: 72em;
+	margin: 0 auto;
+}
+/* line 9, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/budgets.scss */
+.dashboard-navigator .dashboard-toggle-dropdown {
+  width: 200px;
+  height: 300px;
+  display: none;
+  position: absolute;
+  border-radius: 2px;
+}
+/* line 16, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/budgets.scss */
+.dashboard-navigator .dashboard-toggle-dropdown .dashboard-selector-button {
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+  background-color: transparent;
+  height: 25px;
+  width: 100%;
+}
+/* line 25, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/budgets.scss */
+.dashboard-navigator .dashboard-toggle-dropdown .dashboard-selector-button:hover {
+  background-color: red;
+}
+/* line 31, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/budgets.scss */
+.dashboard-navigator .month-toggle-dropdown {
+  width: 200px;
+  height: 300px;
+  display: none;
+  position: absolute;
+  border-radius: 2px;
+}
+/* line 38, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/budgets.scss */
+.dashboard-navigator .month-toggle-dropdown .month-selector-button {
+  margin: 0;
+  padding: 0;
+  border: 1px solid black;
+  background-color: white;
+  height: 25px;
+  width: 100%;
+}
+/* line 47, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/budgets.scss */
+.dashboard-navigator .month-toggle-dropdown .month-selector-button:hover {
+  background-color: red;
+}
+
+/* line 60, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/budgets.scss */
+.overview .progressbar-container {
+  border-radius: 10px;
+  width: 80%;
+  height: 15px;
+  position: relative;
+  background-color: #f2f2f2;
+  z-index: 1;
+}
+/* line 68, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/budgets.scss */
+.overview .progressbar-container .progressbar-filler {
+  border-radius: 10px;
+  height: inherit;
+  position: absolute;
+  z-index: 2;
+}
+.row pop-up {
+    position: absolute;
+    margin: 5% auto;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.box {
+    background-color: whitesmoke;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    position: relative;
+    -webkit-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.1);
+}
+
+.form-group {
+	text-align: center;
+	width: 40%;
+	left: 0;
+  right: 0;
+  position: relative;
+}
+/* line 7, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.navbar {
+  height: 10vh;
+  font-size: 16px;
+  background-color: #e57373;
+}
+/* line 12, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.navbar .navbar-button {
+  background-color: inherit;
+  width: 10%;
+  height: inherit;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  position: absolute;
+}
+/* line 21, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.navbar .navbar-button .navbar-link {
+  top: 30%;
+  position: relative;
+  color: white;
+}
+/* line 29, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.navbar .logout-button {
+  left: 90%;
+}
+/* line 33, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.navbar .signup-button {
+  left: 90%;
+}
+/* line 37, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.navbar .login-button {
+  left: 80%;
+}
+/* line 41, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.navbar .user-profile-button {
+  left: 80%;
+}
+/* line 45, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.navbar .user-dashboard-button {
+  left: 70%;
+}
+
+/* line 52, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.content-container {
+  position: relative;
+}
+
+/* line 57, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.landing {
+  width: 100%;
+  margin: 0 auto;
+  height: 210em;
+  background-image: url(/assets/landing_page_final-4a1662452539cba4b9b35382cc32afd9cdd39c143d8873e93d44b6acebb23fbe.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
+
+/* line 66, /Users/aaronnke/NEXT Academy/Duit/app/assets/stylesheets/pages.scss */
+.goal-banner {
+  width: 100%;
+  margin: 0 auto;
+  height: 39em;
+  background-image: url(/assets/goal-01-1a19f5317ff4cc6878a5091d863b376841b8910105b72f57fe9cfda343c4c2a0.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+}
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -10,11 +225,13 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
- *= require_self
+
+
  */
 
 
+
+ @import url("https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700");
  /*!
  * bootswatch v3.3.7
  * Homepage: http://bootswatch.com
