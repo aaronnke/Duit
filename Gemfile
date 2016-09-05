@@ -49,7 +49,7 @@ gem 'mini_magick'
 
 
 # Use mailcatcher to catch verification email from devise
-gem 'mailcatcher'
+# gem 'mailcatcher'
 
 gem 'omniauth-facebook'
 
