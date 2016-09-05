@@ -1,28 +1,28 @@
-== README
+== GUIDE
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Be sure to read bottom part on how to test, as account creation is disabled on Heroku.
 
-Things you may want to cover:
+A tool to track all you and your family's income, expenses, and savings. This was a 1-week group project by Team Duit!
 
-* Ruby version
+<b>Features:</b>
 
-* System dependencies
+* Super simple data visualization to get key info at a glance
 
-* Configuration
+* Create a budgeted monthly income / expense / goal (savings)
 
-* Database creation
+* Track actual income / expense / goal (savings)    [manual entry for now]
 
-* Database initialization
+* Join a group (family) and see everyone's monies (up to 4 per group)
 
-* How to run the test suite
+<b>How to test:</b>
 
-* Services (job queues, cache servers, search engines, etc.)
+* Log in with either of these accounts:
 
-* Deployment instructions
+<tt> email: mrbean@gmail.com pw: mrbean123 </tt>
+<tt> email: teddy@gmail.com pw: teddy123 </tt>
 
-* ...
+* Go into "Dashboard" via navbar, top left of page
 
+* The default view is "Overview" which shows everyone's stats
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Select view (income / expense / goal) and month via selectors, right below navbar
